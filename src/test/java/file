@@ -2,3 +2,15 @@
                 // 2- Expected Data'yi hazirla
                 // 3- Response'u kaydet
                 // 4- Assertion'lari yap
+
+
+                  Response response=
+                                given()
+                                        .spec(specRestful)
+                                        .contentType(ContentType.JSON)
+                                        .accept(ContentType.JSON)
+                                        .header("Cookie","token=b39c3dc61ea8d8f")
+                                        .body(outer.toString())
+                                        .when()
+                                        .put("/{pp1}/{pp2}");
+                        response.prettyPrint();

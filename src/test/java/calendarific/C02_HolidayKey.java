@@ -28,6 +28,6 @@ public class C02_HolidayKey extends BaseUrlCalendarific {
                  .then()
                  .assertThat()
                  .statusCode(200);
-       //assertEquals();
+       assertEquals(totalSize,response.jsonPath().getList("response.holidays").size());
     }
 }
