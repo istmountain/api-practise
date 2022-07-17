@@ -29,7 +29,7 @@ https://restful-booker.herokuapp.com/booking/:id
 }'
          */
         // 1 -Request url ve body'sini hazirlamak
-        specRestful.pathParams("pp1","booking","pp2",1);
+        specRestful.pathParams("pp1","booking","pp2",152);
         JSONObject js=new JSONObject();
         js.put("firstname" , "Asya");
         js.put("lastname" ,"Ararat");
@@ -48,8 +48,12 @@ https://restful-booker.herokuapp.com/booking/:id
         // 3- Response'u kaydet
         // 4- Assertion'lari yap
         JsonPath jsonPath=response.jsonPath();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
         assertEquals(expData.get("firstname"),jsonPath.get("firstname"));
-        assertEquals(expData.get("firstname"),jsonPath.get("firstname"));
+        assertEquals(expData.get("lastname"),jsonPath.get("lastname"));
 
     }
 }

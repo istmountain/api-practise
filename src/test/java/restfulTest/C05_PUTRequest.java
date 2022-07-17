@@ -54,6 +54,7 @@ public class C05_PUTRequest extends BaseUrlRestful {
                 .contentType(ContentType.JSON)
                 .spec(specRestful)
                 .cookie("token", ConfigReader.getProperty("token"))
+                .when()
                 .body(outer.toString());
         Response response=request.put("/{pp1}/{pp2}");
         response.prettyPrint();
@@ -97,6 +98,7 @@ public class C05_PUTRequest extends BaseUrlRestful {
          */
         // 4- Assertion'lari yap
         JsonPath jsonPath=response.jsonPath();
+
         response.then()
                 .assertThat()
                 .statusCode(200);
