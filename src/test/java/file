@@ -3,3 +3,80 @@
                 // 3- Response'u kaydet
                 // 4- Assertion'lari yap
 
+                gorest
+
+
+                [
+                    {
+                        "id": 2536,
+                        "name": "Mr. Shankar Acharya",
+                        "email": "acharya_shankar_mr@marquardt.com",
+                        "gender": "male",
+                        "status": "active"
+                    },
+                    {
+                        "id": 2535,
+                        "name": "Prayag Asan",
+                        "email": "asan_prayag@bartoletti-leffler.info",
+                        "gender": "female",
+                        "status": "active"
+                    },
+                    {
+                        "id": 2534,
+                        "name": "Jagadish Malik MD",
+                        "email": "md_jagadish_malik@okeefe.org",
+                        "gender": "female",
+                        "status": "active"
+                    },
+                    {
+                        "id": 2533,
+                        "name": "Jyotsana Ganaka",
+                        "email": "jyotsana_ganaka@ward.biz",
+                        "gender": "male",
+                        "status": "inactive"
+                    },
+                    {
+                        "id": 2532,
+                        "name": "Achyut Chopra",
+                        "email": "achyut_chopra@shields.co",
+                        "gender": "male",
+                        "status": "inactive"
+                    },
+                    {
+                        "id": 2531,
+                        "name": "Fr. Usha Panicker",
+                        "email": "usha_fr_panicker@reichert.net",
+                        "gender": "female",
+                        "status": "active"
+                    },
+                    {
+                        "id": 2530,
+                        "name": "Chandraswaroopa Butt Jr.",
+                        "email": "butt_chandraswaroopa_jr@west-schuster.net",
+                        "gender": "female",
+                        "status": "active"
+                    },
+                    {
+                        "id": 2529,
+                        "name": "Amrita Menon",
+                        "email": "menon_amrita@kemmer-schiller.org",
+                        "gender": "male",
+                        "status": "inactive"
+                    },
+                    {
+                        "id": 2528,
+                        "name": "Shakuntala Rana",
+                        "email": "rana_shakuntala@larkin-satterfield.io",
+                        "gender": "female",
+                        "status": "active"
+                    },
+                    {
+                        "id": 2527,
+                        "name": "Prof. Akshayakeerti Devar",
+                        "email": "akshayakeerti_prof_devar@cole.co",
+                        "gender": "female",
+                        "status": "active"
+                    }
+                ]
+
+
