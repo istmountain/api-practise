@@ -46,9 +46,20 @@ curl -X DELETE \
   -H 'Authorisation: Basic YWRtaW46cGFzc3dvcmQxMjM=
          */
         // 1 -Request url ve body'sini hazirlamak
+        specRestful.pathParams("pp1","booking","pp2",70);
+        RequestSpecification req=given()
+                .spec(specRestful)
+                .contentType(ContentType.JSON)
+                .auth().basic("Basic","YWRtaW46cGFzc3dvcmQxMjM=")
+                .when();
+        Response response=req.delete("/{pp1/{pp2}");
         // 2- Expected Data'yi hazirla
         // 3- Response'u kaydet
         // 4- Assertion'lari yap
+        response
+                .then()
+                .assertThat()
+                .statusCode(201);
     }
 
 }

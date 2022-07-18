@@ -55,6 +55,7 @@ public class C04_PostRequest extends BaseUrlRestful {
                         .body(outer.toString())
                         .post("/{pp1}");
         response.prettyPrint();
+      response.getHeaders().asList().stream().forEach(t-> System.out.println(t.getName()));
         // 2- Expected Data'yi hazirla
          /*
         {
