@@ -45,7 +45,10 @@ curl -X 'POST' \
                 .spec(specPet)
                 //.contentType("application/x-www-form-urlencoded")
                 .accept(ContentType.JSON)
-                .body(body)
+                .contentType(ContentType.JSON)
+                .body(body.toString())
+                .when()
+
                 .post("/{pp1}/{pp2}");
         response.prettyPrint();
         System.out.println(response.getContentType());
