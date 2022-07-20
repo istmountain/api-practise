@@ -1,7 +1,14 @@
 package petSwaggerTests;
 
 import baseUrls.BaseUrlPet;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
+
+import java.io.File;
+
+import static io.restassured.RestAssured.given;
 
 public class C07_GetFile extends BaseUrlPet {
     @Test
@@ -21,5 +28,20 @@ String endpoint = "/api/v3/abc";
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@akışŞeması.jpg;type=image/jpeg'
          */
+        String filePath="C:\\Users\\himer\\OneDrive\\Masaüstü\\akışŞeması.jpg";
+        File file=new File(filePath);
+        specPet.pathParams("pp1","pet","pp2",9,"pp3","uploadImage");
+        Response response=given()
+                .spec(specPet)
+                .accept(ContentType.JSON)
+                .multiPart("form-data",file,"application/json")
+                .formParam("file","@akışŞeması.jpg","type","image/jpeg")
+                .when().post("/{pp1}/{pp2}/{pp3}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+
     }
 }

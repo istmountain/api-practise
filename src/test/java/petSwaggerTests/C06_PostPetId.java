@@ -45,7 +45,7 @@ curl -X 'POST' \
                 .spec(specPet)
                 //.contentType("application/x-www-form-urlencoded")
                 .accept(ContentType.JSON)
-                .contentType(ContentType.JSON)
+                .contentType("application/json")
                 .body(body.toString())
                 .when()
 
