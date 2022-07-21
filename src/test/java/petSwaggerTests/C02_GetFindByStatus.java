@@ -25,6 +25,7 @@ public class C02_GetFindByStatus extends BaseUrlPet {
                 .when()
                 .get("/{pp1}/{pp2}");
         response.prettyPrint();
+        System.out.println(response.getHeader("api_key"));
         response
                 .then()
                 .assertThat()

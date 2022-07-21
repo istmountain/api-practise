@@ -79,6 +79,5 @@ Download
         Assert.assertEquals(expData.get("shipDate"),actual.get("shipDate"));
         Assert.assertEquals(expData.get("complete"),actual.get("complete"));
         Assert.assertEquals(expData.get("status"),actual.get("status"));
-
     }
 }

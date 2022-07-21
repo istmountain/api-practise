@@ -22,6 +22,7 @@ public class C04_GetSold extends BaseUrlPet {
                 .contentType(ContentType.JSON)
                 .when()
                 .get("/{pp1}/{pp2}");
+
         response.prettyPrint();
     }
 }

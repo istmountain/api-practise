@@ -71,6 +71,7 @@ public class C01_PostRequest extends BaseUrlPet {
         // 3- Response'u kaydet
         JsonPath actual=response.jsonPath();
         System.out.println(actual.prettyPrint());
+        System.out.println(response.getHeader("api_key"));
         // 4- Assertion'lari yap
         response.then()
                 .assertThat()
