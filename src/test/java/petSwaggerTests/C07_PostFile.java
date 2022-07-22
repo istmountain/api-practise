@@ -10,7 +10,7 @@ import java.io.File;
 
 import static io.restassured.RestAssured.given;
 
-public class C07_GetFile extends BaseUrlPet {
+public class C07_PostFile extends BaseUrlPet {
     @Test
     public void name() {
         /*

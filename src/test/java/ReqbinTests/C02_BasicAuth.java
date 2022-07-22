@@ -39,6 +39,8 @@ Content-Length: 80
         js.put("Customer", "John Smith");
         js.put("Quantity", 1);
         js.put("Price", 10.00);
+
+
         RequestSpecification req=new RequestSpecBuilder().addHeader("Authorization","Basic bGEuY3J5bW9zYTMyMUBnbWFpbC5jb206MTIzNDU2Nzg=")
                 .setBaseUri("https://reqbin.com/echo/post/json").build();
         Response response=given()
@@ -56,7 +58,7 @@ Content-Length: 80
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("POST");
         http.setDoOutput(true);
-        http.setRequestProperty("Authorization", "Basic bGEuY3J5bW9zYTMyMUBnbWFpbC5jb206MTIzNDU2Nzg=");
+        http.setRequestProperty("Authorization", "Bearer mt0dgHmLJMVQhvjpNXDyA83vA_PxH23Y");
         http.setRequestProperty("Content-Type", "application/json");
 
         String data = "{\n  \"Id\": 12345,\n  \"Customer\": \"John Smith\",\n  \"Quantity\": 1,\n  \"Price\": 10.00\n}";
@@ -68,7 +70,5 @@ Content-Length: 80
 
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
-
-
     }
 }

@@ -5,6 +5,12 @@
 
                 gorest
 
+                   Request request = new Request.Builder()
+                        .url(url)
+                        .addHeader("Authorization", "Bearer " + token)
+                        .post(body)
+                        .build();
+
 
                 [
                     {
