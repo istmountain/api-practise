@@ -11,6 +11,13 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 import static io.restassured.RestAssured.given;
 
 public class C01_ReqBinPostRequest extends BaseUrlReqbin {
@@ -49,6 +56,7 @@ Content-Length: 80
         Response response=given()
                 .spec(req)
                 .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
                 .body(data.toString())
                 .when()
                 .post();
@@ -61,7 +69,38 @@ Content-Length: 80
         // 4- Assertion'lari yap
         response
                 .then()
-                .assertThat()
-                .statusCode(200);
+                .assertThat();
+             //   .statusCode(200);
+    }
+
+    @Test
+    public void n2() throws IOException {
+        URL url = new URL("https://reqbin.com/echo/get/json");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestProperty("Accept", "application/json");
+        http.setRequestProperty("Authorization", "Bearer mt0dgHmLJMVQhvjpNXDyA83vA_PxH23Y");
+
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
+    }
+
+    @Test
+    public void m2() throws IOException {
+        URL url = new URL("https://reqbin.com/echo/post/json");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("POST");
+        http.setDoOutput(true);
+        http.setRequestProperty("Authorization", "Basic bGEuY3J5bW9zYTMyMUBnbWFpbC5jb206MTIzNDU2Nzg=");
+        http.setRequestProperty("Content-Type", "application/json");
+
+        String data = "{\n  \"Id\": 12345,\n  \"Customer\": \"John Smith\",\n  \"Quantity\": 1,\n  \"Price\": 10.00\n}";
+
+        byte[] out = data.getBytes(StandardCharsets.UTF_8);
+
+        OutputStream stream = http.getOutputStream();
+        stream.write(out);
+
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
     }
 }
