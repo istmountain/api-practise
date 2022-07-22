@@ -1,13 +1,11 @@
 package petSwaggerTests;
 
 import baseUrls.BaseUrlPet;
-import com.google.gson.JsonArray;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONPropertyName;
-import org.junit.Assert;
+
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
