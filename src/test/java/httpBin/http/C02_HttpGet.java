@@ -1,4 +1,4 @@
-package httpBin;
+package httpBin.http;
 
 import baseUrls.BaseHttpBin;
 import io.restassured.http.ContentType;
