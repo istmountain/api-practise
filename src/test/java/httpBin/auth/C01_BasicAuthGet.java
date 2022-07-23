@@ -16,7 +16,7 @@ import java.net.URL;
 
 import static io.restassured.RestAssured.given;
 
-public class C01_AuthGet extends BaseHttpBin {
+public class C01_BasicAuthGet extends BaseHttpBin {
     @Test
     public void name() {
         /*
