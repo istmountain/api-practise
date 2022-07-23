@@ -55,6 +55,31 @@ http://httpbin.org/hidden-basic-auth/ece/1234567
 
     @Test
     public void hidden_basic_auth_RES() {
+        Response response=given()
+                .header("Authorization", "Basic ZWNlOjEyMzQ1Njc=")
+                .auth()
+                .digest("ece", "1234567")
+                .accept(ContentType.JSON)
+                .when()
+                .get("http://httpbin.org/hidden-basic-auth/ece/1234567");
+        //expData
+        JSONObject exp=new JSONObject();
+        /*
+        {
+  "authenticated": true,
+  "user": "ece"
+}*/
+        exp.put("authenticated",true);
+        exp.put("user", "ece");
+        //response
+        JsonPath act=response.jsonPath();
+        //assert
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        Assert.assertEquals(exp.get("authenticated"),act.get("authenticated"));
+        Assert.assertEquals(exp.get("user"),act.get("user"));
     }
 
     @Test
