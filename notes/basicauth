@@ -1,0 +1,12 @@
+2. Temel Kimlik Doğrulamasını Kullanma
+Temel kimlik doğrulama şeması, tüketicinin Base64'te kodlanmış bir kullanıcı kimliği ve parola göndermesini gerektirir.
+
+REST Assured, isteğin gerektirdiği kimlik bilgilerini yapılandırmak için kolay bir yol sağlar:
+
+given().auth()
+  .basic("user1", "user1Pass")
+  .when()
+  .get("http://localhost:8080/spring-security-rest-basic-auth/api/foos/1")
+  .then()
+  .assertThat()
+  .statusCode(HttpStatus.OK.value());

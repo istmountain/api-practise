@@ -1,0 +1,30 @@
+4. Using Form Authentication
+Many services provide an HTML form for the user to authenticate by filling in the fields with their credentials.
+
+When the user submits the form, the browser executes a POST request with the information.
+
+Normally, the form indicates the endpoint that it'll call with its action attribute, and each input field corresponds with a form parameter sent in the request.
+
+If the login form is simple enough and follows these rules, then we can rely on REST Assured to figure out these values for us:
+
+given().auth()
+  .form("user1", "user1Pass")
+  .when()
+  // ...
+This is not an optimal approach, anyway, since REST Assured needs to perform an additional request and parse the HTML response to find the fields.
+
+We also have to keep in mind that the process can still fail, for example, if the webpage is complex, or if the service is configured with a context path that is not included in the action attribute.
+
+Therefore, a better solution is to provide the configuration ourselves, indicating explicitly the three required fields:
+
+given().auth()
+  .form(
+    "user1",
+    "user1Pass",
+    new FormAuthConfig("/perform_login", "username", "password"))
+  // ...
+Apart from these basic configurations, REST Assured ships with functionality to:
+
+detect or indicate a CSRF token field in the webpage
+use additional form fields in the request
+log information about the authentication process

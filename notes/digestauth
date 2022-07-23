@@ -1,0 +1,12 @@
+3. Using Digest Authentication
+Even though this is also considered a “weak” authentication method, using Digest Authentication represents an advantage over the basic protocol.
+
+This is due to the fact that this scheme avoids sending the password in cleartext.
+
+Despite this difference, implementing this form of authentication with REST Assured is very similar to the one we followed in the previous section:
+
+given().auth()
+  .digest("user1", "user1Pass")
+  .when()
+  // ...
+Note that, currently, the library supports only challenged authentication for this scheme, so we can't use preemptive() as we did earlier.

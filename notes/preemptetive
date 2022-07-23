@@ -1,0 +1,14 @@
+2.1. Preemptive Authentication
+As we've seen on a previous post on Spring Security authentication, a server might use a challenge-response mechanism to indicate explicitly when the consumer needs authenticate to access the resource.
+
+By default, REST Assured waits for the server to challenge before sending the credentials.
+
+This can be troublesome in some cases, for example, where the server is configured to retrieve a login form instead of the challenge response.
+
+For this reason, the library provides the preemptive directive that we can use:
+
+given().auth()
+  .preemptive()
+  .basic("user1", "user1Pass")
+  .when()
+  // ...
