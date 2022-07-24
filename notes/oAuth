@@ -1,0 +1,31 @@
+5. OAuth Support
+OAuth is technically an authorization framework, and it doesn't define any mechanism for authenticating a user.
+
+Still, it can be used as the basis for building an authentication and identity protocol, as is the case of OpenID Connect.
+
+5.1. OAuth 2.0
+REST Assured allows configuring the OAuth 2.0 access token to request a secured resource:
+
+given().auth()
+  .oauth2(accessToken)
+  .when()
+  .// ...
+The library doesn't provide any help in obtaining the access token, so we'll have to figure out how to do this ourselves.
+
+For the Client Credential and Password flows this is a simple task since the Token is obtained by just presenting the corresponding credentials.
+
+On the other hand, automating the Authorization Code flow might not be that easy, and we'll probably need the help of other tools as well.
+
+To understand correctly this flow and what it takes to obtain an Access Token, we can have a look at this great post on the subject.
+
+5.2. OAuth 1.0a
+In the case of OAuth 1.0a, REST Assured supplies a method that receives a Consumer Key, Secret, Access Token and Token Secret to access a secured resource:
+
+given().accept(ContentType.JSON)
+  .auth()
+  .oauth(consumerKey, consumerSecret, accessToken, tokenSecret)
+  // ...
+This protocol requires user input, therefore obtaining the last two fields won't be a trivial task.
+
+Note that we'll need to add the scribejava-apis dependency in our project if we're using OAuth 2.0 features with a version prior to 2.5.0,
+or if we're making use of the OAuth 1.0a functionality.

@@ -10,3 +10,5 @@ given().auth()
   .when()
   // ...
 Note that, currently, the library supports only challenged authentication for this scheme, so we can't use preemptive() as we did earlier.
+https://www.baeldung.com/rest-assured-authentication
+https://www.javadoc.io/doc/io.rest-assured/rest-assured/3.0.5/io/restassured/specification/RequestSpecification.html
