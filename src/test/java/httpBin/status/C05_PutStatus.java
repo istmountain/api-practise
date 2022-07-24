@@ -10,8 +10,8 @@ import java.net.URL;
 
 import static io.restassured.RestAssured.given;
 
-public class C04_PostStatus {
-      /*
+public class C05_PutStatus {
+         /*
     Code	Description
 100
 Informational responses
