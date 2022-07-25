@@ -4,6 +4,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -53,7 +54,10 @@ Accept
                 .header("Authorization", "Basic ZWNlOjEyMzQ1Njc=")
                 .accept(ContentType.JSON)
                 .when()
-                .get("");
+                .get("http://httpbin.org/headers");
+        //expData
+        JSONObject expHeader=new JSONObject();
+
     }
 
     @Test
