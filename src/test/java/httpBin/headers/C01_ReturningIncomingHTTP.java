@@ -2,9 +2,11 @@ package httpBin.headers;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -56,7 +58,38 @@ Accept
                 .when()
                 .get("http://httpbin.org/headers");
         //expData
+        /*
+        Date=Mon, 25 Jul 2022 16:51:16 GMT
+Content-Type=application/json
+Content-Length=354
+Connection=keep-alive
+Server=gunicorn/19.9.0
+Access-Control-Allow-Origin=*
+Access-Control-Allow-Credentials=true
+         */
         JSONObject expHeader=new JSONObject();
+        expHeader.put("Content-Type","application/json");
+        expHeader.put("Content-Length","354");
+        expHeader.put("Connection","keep-alive");
+        expHeader.put("Server","gunicorn/19.9.0");
+        expHeader.put("Access-Control-Allow-Origin","*");
+        expHeader.put("Access-Control-Allow-Credentials","true");
+        System.out.println(response.getHeaders());
+        //save response
+        JsonPath act=response.jsonPath();
+        //assertions
+        response
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .statusCode(200);
+        Assert.assertEquals(expHeader.get("Content-Length"),response.getHeader("Content-Length"));
+        Assert.assertEquals(expHeader.get("Connection"),response.getHeader("Connection"));
+        Assert.assertEquals(expHeader.get("Server"),response.getHeader("Server"));
+        Assert.assertEquals(expHeader.get("Access-Control-Allow-Origin"),response.getHeader("Access-Control-Allow-Origin"));
+        Assert.assertEquals(expHeader.get("Access-Control-Allow-Credentials"),response.getHeader("Access-Control-Allow-Credentials"));
+        Assert.assertEquals(expHeader.get("Content-Type"),response.getHeader("Content-Type"));
+
 
     }
 
