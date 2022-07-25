@@ -1,10 +1,16 @@
 package httpBin.headers;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C01_ReturningIncomingHTTP {
     /*
@@ -42,8 +48,26 @@ Accept
     }
 
     @Test
-    public void name() {
+    public void responseSpec() {
+        Response response=given()
+                .header("Authorization", "Basic ZWNlOjEyMzQ1Njc=")
+                .accept(ContentType.JSON)
+                .when()
+                .get("");
+    }
+
+    @Test
+    public void requestSpec() {
+       // curl -X GET "http://httpbin.org/headers" -H "accept: application/json"
+        RequestSpecification req= new RequestSpecBuilder().addHeader("Authorization", "Basic ZWNlOjEyMzQ1Njc=")
+                .setBaseUri("http://httpbin.org/headers").build();
+        Response response=given()
+                .spec(req)
+                .accept(ContentType.JSON)
+                .when()
+                .get();
               /*
+
         {
   "headers": {
     "Accept": "application/json",
@@ -56,6 +80,24 @@ Accept
     "X-Amzn-Trace-Id": "Root=1-62dec27a-5189a4172963a80357c0a70f"
   }
 }
+Date=Mon, 25 Jul 2022 16:51:16 GMT
+Content-Type=application/json
+Content-Length=354
+Connection=keep-alive
+Server=gunicorn/19.9.0
+Access-Control-Allow-Origin=*
+Access-Control-Allow-Credentials=true
          */
+        System.out.println(response.getHeaders());
+        response
+                .then()
+                .assertThat()
+                .contentType(ContentType.JSON)
+                .header( "Connection","keep-alive")
+                .header("Content-Length","354")
+                .header("Server","gunicorn/19.9.0")
+                .header("Access-Control-Allow-Origin","*")
+                .header("Access-Control-Allow-Credentials","true")
+                .statusCode(200);
     }
 }
