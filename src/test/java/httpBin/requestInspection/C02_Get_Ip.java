@@ -1,4 +1,4 @@
-package httpBin.headers;
+package httpBin.requestInspection;
 
 import baseUrls.BaseHttpBin;
 import io.restassured.builder.RequestSpecBuilder;
