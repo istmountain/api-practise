@@ -1,10 +1,16 @@
 package httpBin.responseInspection;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C04_FreeformQuery {
     /*
@@ -39,9 +45,26 @@ public class C04_FreeformQuery {
 
     @Test
     public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org")
+                .addPathParam("pp1","response-headers")
+               // .addFormParam("freeform","")
+                .addQueryParam("freeform","")
+                .build();
+        Response response=given()
+                .spec(req)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{pp1}");
+        response.prettyPrint();
     }
     @Test
     public void res() {
+        Response response=given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("http://httpbin.org/response-headers?freeform=");
+        response.prettyPrint();
+
     }
     @Test
     public void http() throws IOException {
