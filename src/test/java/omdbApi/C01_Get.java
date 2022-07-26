@@ -9,6 +9,7 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.http.protocol.RequestExpectContinue;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C01_Get {
     @Test
@@ -152,6 +154,66 @@ Response:True
         //reponse kaydet
         JsonPath act=response.jsonPath();
         //assert yap
+        response
+                .then()
+                .assertThat()
+                .statusCode(200)
+
+                .contentType("application/json; charset=utf-8");
+          /*
+        {
+    "Title": "Comedy",
+    "Year": "2020",
+    "Rated": "N/A",
+    "Released": "17 Jul 2020",
+    "Runtime": "N/A",
+    "Genre": "Animation, Short, Comedy, Horror",
+    "Director": "David Cazares",
+    "Writer": "David Cazares",
+    "Actors": "David Cazares, Zach Fuller",
+    "Plot": "Laugh with Us",
+    "Language": "English",
+    "Country": "Mexico, USA",
+    "Awards": "N/A",
+    "Poster": "https://m.media-amazon.com/images/M/MV5BMTA2YTJhZDUtODVmNS00MjRiLWEzNzMtYTRkMjk4ZjI2OWYxXkEyXkFqcGdeQXVyNjg2MDY1NzE@._V1_SX300.jpg",
+    "Ratings": [
+        {
+            "Source": "Internet Movie Database",
+            "Value": "8.8/10"
+        }
+    ],
+
+
+         */
+        assertEquals(exp.get("Released"),act.get("Released"));
+        assertEquals(exp.get("Runtime"),act.get("Runtime"));
+        assertEquals(exp.get("Genre"),act.get("Genre"));
+        assertEquals(exp.get("Director"),act.get("Director"));
+        assertEquals(exp.get( "Writer"),act.get( "Writer"));
+        assertEquals(exp.get( "Actors"),act.get( "Actors"));
+        assertEquals(exp.get("Plot"),act.get("Plot"));
+        assertEquals(exp.get("Language"),act.get("Language"));
+        assertEquals(exp.get("Country"),act.get("Country"));
+        assertEquals(exp.get("Awards"),act.get("Awards"));
+        assertEquals(exp.get("Poster"),act.get("Poster"));
+       // assertEquals(    ((JSONObject)exp.getJSONArray("Ratings").get(0)).getJSONObject("Value"),act.get("Ratings.one.Source"));
+       // assertEquals(exp.getJSONArray("Ratings").get(1),act.get("Ratings.one.Value"));
+
+        assertEquals(exp.get("Title"),act.get("Title"));
+        assertEquals(exp.get("Year"),act.get("Year"));
+        assertEquals(exp.get("Rated"),act.get("Rated"));
+        assertEquals(exp.get("Metascore"),act.get("Metascore"));
+        assertEquals(exp.get("imdbRating"  ),act.get("imdbRating"));
+        assertEquals(exp.get("imdbVotes"),act.get("imdbVotes"));
+        assertEquals(exp.get("imdbID"),act.get("imdbID"));
+        assertEquals(exp.get("Type"),act.get("Type"));
+        assertEquals(exp.get("BoxOffice"),act.get("BoxOffice"));
+        assertEquals(exp.get("Production"),act.get("Production"));
+        assertEquals(exp.get("Response"),act.get("Response"));
+        assertEquals(exp.get("DVD"),act.get("DVD"));
+
+
+
 
 
 
