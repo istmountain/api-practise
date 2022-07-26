@@ -4,9 +4,12 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C02_CacheControlIntSeconds {
     @Test
@@ -60,6 +63,23 @@ Response headers//exp heeaders
                 .when()
                 .get("http://httpbin.org/cache/3");
         response.prettyPrint();
+        //exp
+        JSONObject exp=new JSONObject();
+        exp.put( "Accept", "application/json, application/javascript, text/javascript, text/json");
+        exp.put("Accept-Encoding", "gz1p,deflate");
+        exp.put("Host", "httpbin.org");
+        exp.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        exp.put("X-Amzn-Trace-Id", "Root=1-62dffddc-26e6026c7e1d75930d834c09");
+        //Response header Assert
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(exp.get("Accept"),response.jsonPath().get("headers.Accept"));
+        assertEquals(exp.get("Accept-Encoding"),response.jsonPath().get("headers.Accept-Encoding"));
+        assertEquals(exp.get("Host"),response.jsonPath().get("headers.Host"));
+        assertEquals(exp.get("User-Agent"),response.jsonPath().get("headers.User-Agent"));
+      //  assertEquals(exp.get("X-Amzn-Trace-Id"),response.jsonPath().get("headers.X-Amzn-Trace-Id"));
     }
 
     @Test
@@ -70,5 +90,21 @@ Response headers//exp heeaders
                 .contentType(ContentType.JSON)
                 .when()
                 .get();
+        //exp
+        JSONObject exp=new JSONObject();
+        exp.put( "Accept", "application/json, application/javascript, text/javascript, text/json");
+        exp.put("Accept-Encoding", "gz1p,deflate");
+        exp.put("Host", "httpbin.org");
+        exp.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        exp.put("X-Amzn-Trace-Id", "Root=1-62dffddc-26e6026c7e1d75930d834c09");
+        //Response header Assert
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(exp.get("Accept"),response.jsonPath().get("headers.Accept"));
+        assertEquals(exp.get("Accept-Encoding"),response.jsonPath().get("headers.Accept-Encoding"));
+        assertEquals(exp.get("Host"),response.jsonPath().get("headers.Host"));
+        assertEquals(exp.get("User-Agent"),response.jsonPath().get("headers.User-Agent"));
     }
 }
