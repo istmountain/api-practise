@@ -182,8 +182,6 @@ Response:True
             "Value": "8.8/10"
         }
     ],
-
-
          */
         assertEquals(exp.get("Released"),act.get("Released"));
         assertEquals(exp.get("Runtime"),act.get("Runtime"));
