@@ -3,6 +3,7 @@ package omdbApi;
 import com.google.gson.JsonArray;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.protocol.RequestExpectContinue;
@@ -87,21 +88,31 @@ Response:True
         inner.put("Source", "Internet Movie Database");
         inner.put( "Value", "8.8/10");
         one.put(0,inner);
-        exp.put("Title": "Comedy");
-        exp.put("Year": "2020");
-        exp.put("Rated": "N/A");
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
-        exp.put();
+        exp.put("Title", "Comedy");
+        exp.put("Year", "2020");
+        exp.put("Rated", "N/A");
+        exp.put("Genre", "Animation, Short, Comedy, Horror");
+        exp.put("Released", "17 Jul 2020");
+        exp.put("Runtime","N/A");
+        exp.put("Director", "David Cazares");
+        exp.put("Writer", "David Cazares");
+        exp.put("Actors", "David Cazares, Zach Fuller");
+        exp.put("Actors", "David Cazares, Zach Fuller");
+        exp.put("Plot", "Laugh with Us");
+        exp.put("Language", "English");
+        exp.put("Country", "Mexico, USA");
+        exp.put("Awards", "N/A");
+        exp.put("Poster", "https://m.media-amazon.com/images/M/MV5BMTA2YTJhZDUtODVmNS00MjRiLWEzNzMtYTRkMjk4ZjI2OWYxXkEyXkFqcGdeQXVyNjg2MDY1NzE@._V1_SX300.jpg");
+        exp.put("Ratings",one);
+        exp.put("Metascore", "N/A");
+        exp.put("Production", "N/A");
+        exp.put("BoxOffice", "N/A");
+        exp.put("DVD", "N/A");
+        exp.put("Type", "movie");
+        exp.put("Response", "True");
+        exp.put("imdbID", "tt12754686");
+        exp.put("imdbVotes", "6");
+        exp.put("imdbRating", "8.8");
 
         /*
         {
@@ -139,6 +150,7 @@ Response:True
 
          */
         //reponse kaydet
+        JsonPath act=response.jsonPath();
         //assert yap
 
 
