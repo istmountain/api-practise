@@ -1,6 +1,12 @@
 package httpBin.responseInspection;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
+
+import static io.restassured.RestAssured.given;
 
 public class C02_CacheControlIntSeconds {
     @Test
@@ -30,7 +36,7 @@ Download
   "origin": "88.236.86.164",
   "url": "http://httpbin.org/cache/3"
 }
-Response headers/7exp heeaders
+Response headers//exp heeaders
  access-control-allow-credentials: true 
  access-control-allow-origin: * 
  cache-control: public, max-age=3 
@@ -40,9 +46,29 @@ Response headers/7exp heeaders
  date: Tue, 26 Jul 2022 11:10:10 GMT 
  server: gunicorn/19.9.0 
          */
+        /*
+        "headers": {
+        "Accept": "application/json, application/javascript, text/javascript, text/json",
+        "Accept-Encoding": "gz1p,deflate",
+        "Host": "httpbin.org",
+        "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+        "X-Amzn-Trace-Id": "Root=1-62dffddc-26e6026c7e1d75930d834c09"
+    }
+         */
+        Response response=given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("http://httpbin.org/cache/3");
+        response.prettyPrint();
     }
 
     @Test
     public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/cache/3").build();
+        Response response=given()
+                .spec(req)
+                .contentType(ContentType.JSON)
+                .when()
+                .get();
     }
 }
