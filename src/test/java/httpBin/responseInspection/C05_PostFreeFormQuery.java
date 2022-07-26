@@ -1,10 +1,18 @@
 package httpBin.responseInspection;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C05_PostFreeFormQuery {
     /*Curl
@@ -46,8 +54,55 @@ public class C05_PostFreeFormQuery {
     }
     @Test
     public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/response-headers?freeform=ece")
+                .build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .get();
+        response.prettyPrint();
+       /*
+        {
+            "Content-Length": "68",
+                "Content-Type": "application/json"
+        }
+        */
+        //exp
+        JSONObject exp=new JSONObject();
+        exp.put("Content-Length", "68");
+        exp.put("Content-Type", "application/json");
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        Assert.assertEquals(exp.get("Content-Length"),response.jsonPath().get("Content-Length"));
+        Assert.assertEquals(exp.get("Content-Type"),response.jsonPath().get("Content-Type"));
     }
     @Test
     public void res() {
+        Response response=given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("http://httpbin.org/response-headers?freeform=ece");
+        response.prettyPrint();
+       /*
+        {
+            "Content-Length": "68",
+                "Content-Type": "application/json"
+        }
+        */
+        //exp
+        JSONObject exp=new JSONObject();
+        exp.put("Content-Length", "90");
+        exp.put("Content-Type", "application/json");
+        exp.put("freeform", "ece");
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        Assert.assertEquals(exp.get("Content-Length"),response.jsonPath().get("Content-Length"));
+        Assert.assertEquals(exp.get("Content-Type"),response.jsonPath().get("Content-Type"));
+        Assert.assertEquals(exp.get("freeform"),response.jsonPath().get("freeform"));
+
     }
 }
