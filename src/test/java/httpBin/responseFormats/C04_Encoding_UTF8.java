@@ -1,6 +1,17 @@
 package httpBin.responseFormats;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C04_Encoding_UTF8 extends BaseHttpBin {
     /*
@@ -248,4 +259,39 @@ Encoded UTF-8 content.
 
 
      */
+    @Test
+    public void http() throws IOException {
+        URL url = new URL("http://httpbin.org/encoding/utf8");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
+    }
+    @Test
+    public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/encoding/utf8").build();
+        Response response=given()
+                .spec(req)
+                .contentType(ContentType.JSON)
+                .when()
+                .get();
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
+    }
+    @Test
+    public void res() {
+        specHttpbin.pathParams("pp1","encoding","pp2","utf8");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{pp1}/{pp2}");
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
+
+    }
+
 }
