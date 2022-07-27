@@ -47,46 +47,39 @@ Download
                 .accept(ContentType.JSON)
                 .when()
                 .get();
+        response.prettyPrint();
         //exp response body
         /*
-        {
-  "gzipped": true,
-  "headers": {
-    "Accept": "application/json",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "tr,en;q=0.9,en-GB;q=0.8,en-US;q=0.7",
-    "Cookie": "stale_after=never; fake=fake_value; last_nonce=1027ef932062b9ecae44b3557b950c76",
-    "Host": "httpbin.org",
-    "Referer": "http://httpbin.org/",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.62",
-    "X-Amzn-Trace-Id": "Root=1-62e18b7a-62ad638465451615624660e5"
-  },
-  "method": "GET",
-  "origin": "178.245.94.65"
+     {
+    "gzipped": true,
+    "headers": {
+        "Accept": "application/json, application/javascript, text/javascript, text/json",
+        "Accept-Encoding": "gz1p,deflate",
+        "Host": "httpbin.org",
+        "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+        "X-Amzn-Trace-Id": "Root=1-62e1947f-4dba55864164bfa5280da270"
+    },
+    "method": "GET",
+    "origin": "178.245.94.65"
 }
+
          */
         JSONObject exp=new JSONObject();
         JSONObject inner=new JSONObject();
-        inner.put("Accept", "application/json");
-        inner.put("Accept-Encoding", "gzip, deflate");
-        inner.put("Accept-Language","tr,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-        inner.put("Cookie", "stale_after=never; fake=fake_value; last_nonce=1027ef932062b9ecae44b3557b950c76");
-        inner.put("Host", "httpbin.org");
-        inner.put("Referer", "http://httpbin.org/");
-        inner.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.62");
+        inner.put("Accept", "application/json, application/javascript, text/javascript, text/json");
+        inner.put( "Accept-Encoding", "gz1p,deflate");
+        inner.put("Host","httpbin.org");
+        inner.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
         exp.put("method", "GET");
         exp.put("origin", "178.245.94.65");
         exp.put("gzipped", true);
         exp.put("headers",inner);
         //save actual response
-        JsonPath actual=new JsonPath();
+        JsonPath actual=response.jsonPath();
         //
         assertEquals(exp.getJSONObject("headers").get("Accept"),actual.get("headers.Accept"));
         assertEquals(exp.getJSONObject("headers").get("Accept-Encoding"),actual.get("headers.Accept-Encoding"));
-        assertEquals(exp.getJSONObject("headers").get("Accept-Language"),actual.get("headers.Accept-Language"));
-        assertEquals(exp.getJSONObject("headers").get("Cookie"),actual.get("headers.Cookie"));
         assertEquals(exp.getJSONObject("headers").get("Host"),actual.get("headers.Host"));
-        assertEquals(exp.getJSONObject("headers").get("Referer"),actual.get("headers.Referer"));
         assertEquals(exp.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
         assertEquals(exp.get("method"),actual.get("method"));
         assertEquals(exp.get("origin"),actual.get("origin"));
@@ -107,31 +100,37 @@ Download
                 .accept(ContentType.JSON)
                 .when()
                 .get("/{pp1}");
+        System.out.println(response.getHeaders());
         // expected Response header
         JSONObject expHeader=new JSONObject();
         /*
         Response headers
- access-control-allow-credentials: true
- access-control-allow-origin: *
- connection: keep-alive
- content-encoding: gzip
- content-length: 430
- content-type: application/json
- date: Wed, 27 Jul 2022 19:01:14 GMT
- server: gunicorn/19.9.0
+Date=Wed, 27 Jul 2022 19:45:49 GMT
+Content-Type=application/json
+Content-Length=272
+Connection=keep-alive
+Server=gunicorn/19.9.0
+Content-Encoding=gzip
+Access-Control-Allow-Origin=*
+Access-Control-Allow-Credentials=true
          */
-        expHeader.put("access-control-allow-credentials",true);
-        expHeader.put( "access-control-allow-origin", "*");
-        expHeader.put("connection", "keep-alive");
-        expHeader.put("content-encoding","gzip");
-        expHeader.put("content-length",430);
-        expHeader.put("content-type", "application/json");
-        expHeader.put( "date", "Wed, 27 Jul 2022 19:01:14 GMT");
-        expHeader.put("server", "gunicorn/19.9.0");
+        expHeader.put("Access-Control-Allow-Credentials","true");
+        expHeader.put( "Access-Control-Allow-Origin", "*");
+        expHeader.put("Connection", "keep-alive");
+        expHeader.put("Content-Encoding","gzip");
+        expHeader.put("Content-Type", "application/json");
+        expHeader.put("Server", "gunicorn/19.9.0");
 
         response.then()
                 .assertThat()
                 .statusCode(200);
+        assertEquals(expHeader.get("Content-Type"),response.getHeader("Content-Type"));
+        assertEquals(expHeader.get("Connection"),response.getHeader("Connection"));
+        assertEquals(expHeader.get("Server"),response.getHeader("Server"));
+        assertEquals(expHeader.get("Content-Encoding"),response.getHeader("Content-Encoding"));
+        assertEquals(expHeader.get("Access-Control-Allow-Origin"),response.getHeader("Access-Control-Allow-Origin"));
+        assertEquals(expHeader.get("Access-Control-Allow-Credentials"),response.getHeader("Access-Control-Allow-Credentials"));
+
 
     }
 }
