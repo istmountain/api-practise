@@ -66,6 +66,17 @@ Denied message
     }
     @Test
     public void res() {
+        specHttpbin.pathParam("pp1","deny");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{pp1}");
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
+
     }
 
     @Test
