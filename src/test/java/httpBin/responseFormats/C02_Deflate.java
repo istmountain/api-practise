@@ -81,9 +81,33 @@ public class C02_Deflate extends BaseHttpBin {
 
     }
     @Test
-    public void http() {
-    }
-    @Test
     public void res() {
+        specHttpbin.pathParam("pp1","deflate");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{pp1}");
+
+        //exp data
+        JSONObject exp=new JSONObject();
+        /*
+           },
+          "method": "GET",
+          "origin": "88.236.86.164"
+        }
+         */
+        exp.put("method", "GET");
+        exp.put("origin", "88.236.86.164");
+        //Response save
+        JsonPath act=response.jsonPath();
+        //Assert
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        Assert.assertEquals(exp.get("method"),act.get("method"));
+        Assert.assertEquals(exp.get("origin"),act.get("origin"));
+
     }
 }
