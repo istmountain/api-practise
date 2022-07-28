@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -103,6 +105,7 @@ Response headers
     }
 }
          */
+        System.out.println(exp);
         //
         JsonPath act=response.jsonPath();
 
@@ -110,9 +113,14 @@ Response headers
                 .then()
                 .assertThat()
                 .statusCode(200);
-       assertEquals(exp.getJSONObject("slideshow").get("author"),act.get("slideshow.author"));
+        assertEquals(exp.getJSONObject("slideshow").get("author"),act.get("slideshow.author"));
         assertEquals(exp.getJSONObject("slideshow").get("date"),act.get("slideshow.date"));
         assertEquals(exp.getJSONObject("slideshow").get("title"),act.get("slideshow.title"));
+        assertEquals(exp.getJSONObject("slideshow").getJSONArray("slides").getJSONObject(0).get("title"),((Map)act.getList("slideshow.slides").get(0)).get("title")) ;
+        assertEquals(exp.getJSONObject("slideshow").getJSONArray("slides").getJSONObject(0).get("type"),((Map)act.getList("slideshow.slides").get(0)).get("type")) ;
+        assertEquals(exp.getJSONObject("slideshow").getJSONArray("slides").getJSONObject(1).getJSONArray("items").get(0),
+                (   ((ArrayList)  ((Map)act.getList("slideshow.slides").get(1)).get("items")).get(0) )  ) ;
+
     }
     @Test
     public void res() {
