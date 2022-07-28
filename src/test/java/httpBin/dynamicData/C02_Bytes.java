@@ -35,6 +35,19 @@ public class C02_Bytes extends BaseHttpBin {
     }
     @Test
     public void res() {
+        specHttpbin.pathParams("pp1","bytes","pp2",5);
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("application/octet-stream")
+                .when()
+                .get("/{pp1}/{pp2}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("application/octet-stream");
+
     }
 
     /*
