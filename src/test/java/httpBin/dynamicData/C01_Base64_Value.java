@@ -28,16 +28,12 @@ public class C01_Base64_Value extends BaseHttpBin {
                 .when()
                 .get();
         response.prettyPrint();
-        //expected
-       HTML exp=response.as(HTML.class);
-        System.out.println(exp);
         //assert
         response
                 .then()
                 .assertThat()
                 .statusCode(200)
-                .contentType("text/html")
-                .body("HTTPBIN is awesome",Matchers.equalTo(exp));
+                .contentType("text/html");
     }
     @Test
     public void res() {
@@ -48,8 +44,6 @@ public class C01_Base64_Value extends BaseHttpBin {
                 .when()
                 .get("/{pp1}/{pp2}");
         response.prettyPrint();
-        //expected
-
         //assert
         response
                 .then()
