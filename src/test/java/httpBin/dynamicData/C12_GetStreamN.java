@@ -15,6 +15,7 @@ import static io.restassured.RestAssured.given;
 public class C12_GetStreamN extends BaseHttpBin {
     /*
     Curl
+Stream n JSON responses
 curl -X GET "http://httpbin.org/stream/3" -H "accept: application/json"
 Request URL
 http://httpbin.org/stream/3
@@ -50,6 +51,7 @@ Streamed JSON responses.
         http.disconnect();
 
         /*
+Stream n JSON responses
         Curl
 curl -X GET "http://httpbin.org/stream/3" -H "accept: application/json"
 Request URL
@@ -71,6 +73,7 @@ http://httpbin.org/stream/3
                 .contentType("application/json");
         /*
         Curl
+Stream n JSON responses
 curl -X GET "http://httpbin.org/stream/3" -H "accept: application/json"
 Request URL
 http://httpbin.org/stream/3
@@ -79,6 +82,7 @@ http://httpbin.org/stream/3
     @Test
     public void res() {
         /*
+Stream n JSON responses
         Curl
 curl -X GET "http://httpbin.org/stream/3" -H "accept: application/json"
 Request URL
