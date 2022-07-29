@@ -12,7 +12,7 @@ import java.net.URL;
 
 import static io.restassured.RestAssured.given;
 
-public class C06_PostDelay extends BaseHttpBin {
+public class C07_PutDelay extends BaseHttpBin {
     @Test
     public void http() throws IOException {
         URL url = new URL("http://httpbin.org/delay/3");
@@ -32,7 +32,7 @@ http://httpbin.org/delay/2
         Response response=given()
                 .spec(req)
                 .when()
-                .post();
+                .put();
         response.prettyPrint();
         response.then()
                 .assertThat()
@@ -51,7 +51,7 @@ http://httpbin.org/delay/2
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .post("/{pp1}/{pp2}");
+                .put("/{pp1}/{pp2}");
         response.prettyPrint();
         response.then()
                 .assertThat()
