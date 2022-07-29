@@ -12,27 +12,19 @@ import java.net.URL;
 
 import static io.restassured.RestAssured.given;
 
-public class C09_Links__GenerateAPageContainignNLinkstoOtherPagesWhichTodoSAme extends BaseHttpBin {
+public class C11_StreamBytes extends BaseHttpBin {
     /*
-    Curl
-Generate a page containing n links to other pages which do the same.
-curl -X GET "http://httpbin.org/links/4/5" -H "accept: text/html"
-Request URL
-http://httpbin.org/links/4/5
-Server response
-Code	Details
-200
+
 Response body
-Download
-<html><head><title>Links</title></head><body><a href='/links/4/0'>0</a> <a href='/links/4/1'>1</a> <a href='/links/4/2'>2</a> <a href='/links/4/3'>3</a> </body></html>
+Download file
 Response headers
  access-control-allow-credentials: true
  access-control-allow-origin: *
  connection: keep-alive
- content-length: 167
- content-type: text/html; charset=utf-8
- date: Fri, 29 Jul 2022 13:01:12 GMT
+ content-type: application/octet-stream
+ date: Fri, 29 Jul 2022 13:48:24 GMT
  server: gunicorn/19.9.0
+ transfer-encoding: chunked
 Responses
 Code	Description
 200
@@ -40,22 +32,26 @@ Code	Description
 
     @Test
     public void http() throws IOException {
-        URL url = new URL("http://httpbin.org/links/4/5");
+        URL url = new URL("http://httpbin.org/stream-bytes/4");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
+
     }
+
     @Test
     public void req() {
         /*
             Curl
-Generate a page containing n links to other pages which do the same.
-curl -X GET "http://httpbin.org/links/4/5" -H "accept: text/html"
+curl -X GET "http://httpbin.org/stream-bytes/4" -H "accept: application/octet-stream"
 Request URL
-http://httpbin.org/links/4/5
+http://httpbin.org/stream-bytes/4
+Server response
+Code	Details
+200
          */
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/links/4/5")
-                .setAccept("text/html").build();
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/stream-bytes/4")
+                .setAccept("application/octet-stream").build();
         Response response=given()
                 .spec(req)
                 .when()
@@ -64,27 +60,31 @@ http://httpbin.org/links/4/5
         response.then()
                 .assertThat()
                 .statusCode(200)
-                .contentType("text/html");
+                .contentType("application/octet-stream");
     }
+
     @Test
     public void res() {
-                /*
+              /*
             Curl
-Generate a page containing n links to other pages which do the same.
-curl -X GET "http://httpbin.org/links/4/5" -H "accept: text/html"
+curl -X GET "http://httpbin.org/stream-bytes/4" -H "accept: application/octet-stream"
 Request URL
-http://httpbin.org/links/4/5
+http://httpbin.org/stream-bytes/4
+Server response
+Code	Details
+200
          */
-        specHttpbin.pathParams("pp1","links","pp2",4,"pp3",5);
+        specHttpbin.pathParams("pp1","stream-bytes","pp2",4);
         Response response=given()
                 .spec(specHttpbin)
-                .accept("text/html")
+                .accept("application/octet-stream")
                 .when()
-                .get("/{pp1}/{pp2}/{pp3}");
+                .get("/{pp1}/{pp2}");
         response.prettyPrint();
         response.then()
                 .assertThat()
                 .statusCode(200)
-                .contentType("text/html");
+                .contentType("application/octet-stream");
     }
-}
+    }
+

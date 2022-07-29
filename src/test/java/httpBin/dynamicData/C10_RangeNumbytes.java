@@ -15,6 +15,7 @@ import static io.restassured.RestAssured.given;
 public class C10_RangeNumbytes extends BaseHttpBin {
     /*
 
+Streams n random bytes generated with given seed, at given chunk size per packet.
 Response body
 Download file
 Response headers
@@ -44,6 +45,7 @@ Code	Description
     public void req() {
         /*
                 Curl
+Streams n random bytes generated with given seed, at given chunk size per packet.
     curl -X GET "http://httpbin.org/range/5" -H "accept: application/octet-stream"
     Request URL
     http://httpbin.org/range/5
@@ -66,6 +68,7 @@ Code	Description
     @Test
     public void res() {
         /*
+Streams n random bytes generated with given seed, at given chunk size per packet.
             Curl
     curl -X GET "http://httpbin.org/range/5" -H "accept: application/octet-stream"
     Request URL
