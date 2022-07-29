@@ -1,11 +1,16 @@
 package httpBin.dynamicData;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C09_Links__GenerateAPageContainignNLinkstoOtherPagesWhichTodoSAme extends BaseHttpBin {
     /*
@@ -41,8 +46,42 @@ Code	Description
     }
     @Test
     public void req() {
+        /*
+            Curl
+curl -X GET "http://httpbin.org/links/4/5" -H "accept: text/html"
+Request URL
+http://httpbin.org/links/4/5
+         */
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/links/4/5")
+                .setAccept("text/html").build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .get();
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("text/html");
     }
     @Test
     public void res() {
+                /*
+            Curl
+curl -X GET "http://httpbin.org/links/4/5" -H "accept: text/html"
+Request URL
+http://httpbin.org/links/4/5
+         */
+        specHttpbin.pathParams("pp1","drip","pp2",4,"pp3",5);
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("text/html")
+                .when()
+                .get("/{pp1}");
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("text/html");
     }
 }
