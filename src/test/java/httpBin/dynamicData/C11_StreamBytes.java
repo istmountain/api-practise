@@ -15,6 +15,7 @@ import static io.restassured.RestAssured.given;
 public class C11_StreamBytes extends BaseHttpBin {
     /*
 
+Streams n random bytes generated with given seed, at given chunk size per packet.
 Response body
 Download file
 Response headers
@@ -32,6 +33,8 @@ Code	Description
 
     @Test
     public void http() throws IOException {
+
+        //Streams n random bytes generated with given seed, at given chunk size per packet.
         URL url = new URL("http://httpbin.org/stream-bytes/4");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
@@ -43,6 +46,7 @@ Code	Description
     public void req() {
         /*
             Curl
+Streams n random bytes generated with given seed, at given chunk size per packet.
 curl -X GET "http://httpbin.org/stream-bytes/4" -H "accept: application/octet-stream"
 Request URL
 http://httpbin.org/stream-bytes/4
@@ -67,6 +71,7 @@ Code	Details
     public void res() {
               /*
             Curl
+Streams n random bytes generated with given seed, at given chunk size per packet.
 curl -X GET "http://httpbin.org/stream-bytes/4" -H "accept: application/octet-stream"
 Request URL
 http://httpbin.org/stream-bytes/4
