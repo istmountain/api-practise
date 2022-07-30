@@ -68,6 +68,16 @@ http://httpbin.org/cookies/set?freeform=
     }
     @Test
     public void res() {
+        specHttpbin.pathParams("pp1","cookies","pp2","set").queryParam("freeform","");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("text/plain")
+                .when()
+                .get("/{pp1}/{pp2}");
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
 
                 /*
             Curl
