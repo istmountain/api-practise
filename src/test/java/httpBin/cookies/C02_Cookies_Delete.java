@@ -63,9 +63,40 @@ Server response
                 .when()
                 .get();
         response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("application/json");
+                /*
+              Curl
+curl -X GET "http://httpbin.org/cookies/delete?freeform=" -H "accept: text/plain"
+Request URL
+http://httpbin.org/cookies/delete?freeform=
+Server response
+         */
     }
     @Test
     public void res() {
+        specHttpbin.pathParams("pp1","cookies","pp2","delete").queryParam("freeform","");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("application/json")
+                .when()
+                .get("/{pp1}/{pp2}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("application/json");
+                /*
+              Curl
+curl -X GET "http://httpbin.org/cookies/delete?freeform=" -H "accept: text/plain"
+Request URL
+http://httpbin.org/cookies/delete?freeform=
+Server response
+         */
     }
 
 }
