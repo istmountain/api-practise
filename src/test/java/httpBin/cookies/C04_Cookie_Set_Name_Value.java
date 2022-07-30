@@ -1,11 +1,16 @@
 package httpBin.cookies;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C04_Cookie_Set_Name_Value extends BaseHttpBin {
     /*
@@ -57,7 +62,15 @@ Code	Details
     }
     @Test
     public void req() {
-
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/cookies/set/ece/alper").setContentType("text/plain").build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .get();
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
         /*
             Curl
 curl -X GET "http://httpbin.org/cookies/set/ece/alper" -H "accept: text/plain"
@@ -69,6 +82,17 @@ Code	Details
     }
     @Test
     public void res() {
+        specHttpbin.pathParams("pp1","cookies","pp2","set","pp3","ece","pp4","alper");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("text/plain")
+                .when()
+                .get("/{pp1}/{pp2}/{pp3}/{pp4}");
+        response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
+
 
         /*
             Curl
