@@ -1,8 +1,6 @@
-package ReqbinTests;
+package reqbinTests;
 
-import baseUrls.BaseUrlPet;
 import baseUrls.BaseUrlReqbin;
-import com.sun.net.httpserver.Request;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -14,7 +12,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 

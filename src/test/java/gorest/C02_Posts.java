@@ -1,4 +1,4 @@
-package Gorest;
+package gorest;
 
 import baseUrls.BaseUrlGorest;
 import io.restassured.http.ContentType;
@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 

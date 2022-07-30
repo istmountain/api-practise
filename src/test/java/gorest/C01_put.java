@@ -1,4 +1,4 @@
-package Gorest;
+package gorest;
 
 import baseUrls.BaseUrlGorest;
 import io.restassured.response.Response;
