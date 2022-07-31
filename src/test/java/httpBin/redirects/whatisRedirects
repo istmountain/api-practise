@@ -1,0 +1,147 @@
+
+
+        URL Yönlendirmesi nedir ve nasıl çalışır?
+        URL Yönlendirme (URL Yönlendirme olarak da adlandırılır), alanınızın ziyaretçilerini farklı bir URL'ye yönlendirmek
+         için kullanılan bir tekniktir. Alan adınızı, çevrimiçi olarak kullanılabilen herhangi bir web sitesine, web sayfasına vb. yönlendirebilirsiniz.
+
+        Yeniden yönlendirmeler, HTTP protokolü içinde tanımlanan durum kodlarını kullanır.
+
+        Buna bağlı olarak, URL yönlendirme şu türlerde olabilir: 301 (kalıcı), 302 (geçici) URL Yönlendirmeleri
+        ve URL Çerçevesi (maskeli yönlendirme). Bu yönlendirme türleri hakkında daha fazla bilgi edinin.
+
+        URL Yönlendirmelerinin nasıl ayarlanacağı hakkında da daha fazla bilgiye sahibiz.
+
+        Oluşturulmamış tüm alt etki alanlarını web sitenizdeki bir sayfaya veya Web'deki başka bir sayfaya yönlendirmenize olanak tanıyan
+        joker alt etki alanını ayarlamak isterseniz, bu öğreticiye başvurabilirsiniz.
+
+        Bu yönlendirme türü, birisi var olmayan veya yanlış yazılmış bir alt alana girdiğinde de çalışır. WordPress siteleri için,
+        yönlendirme eklentilerini kullanmak, sitenize her türlü yönlendirmeyi uygulamanın çok daha basit bir yoludur. FTP istemcisi kullanmanız veya arka uca
+        erişmeniz gerekmez. WordPress'te yönlendirme için derinlemesine bir kılavuz için EasyWP blogumuzdaki bu makaleye göz atın.
+
+
+
+            What is URL Redirect and how does it work?
+            URL Redirect (also referred to as URL Forwarding) is a technique which is used to redirect your domain's visitors to a different URL.
+            ,You can forward your domain name to any website, webpage, etc. which is available online.
+
+            Redirects use status codes defined within the HTTP protocol.
+
+            Based on this, URL forwarding may be of the following types: 301 (permanent), 302 (temporary) URL Redirects, and URL Frame (masked redirect).
+             Read more about these redirect types.
+
+            We also have more information about how to set up URL Redirects.
+
+            If you would like to set the wildcard subdomain that lets you forward all subdomains that have not been created to a page on your website or to any other page,
+             on the Web, you may refer to this tutorial.
+
+            This type of redirect will also work if someone enters a non-existent or mistyped subdomain. For WordPress sites, using redirect plugins is a much simpler way of
+            implementing any kind of redirect onto your site. You won’t have to use an FTP client at all or access the backend. Check out this article on our EasyWP blog for an
+             in-depth guide to redirecting in WordPress.
+             Etki Alanı Yönlendirme Türleri - 301, 302 URL Yönlendirmeleri, URL Çerçevesi (ve CNAME)
+             Bazen, ziyaretçilerinizi bir alandan diğerine yönlendirmeniz veya başka bir alana bağlamanız gerekir, ancak hangi yönlendirme seçeneğini seçmelisiniz?
+
+
+
+             Bu yazıda size ortak yönlendirme türlerinin farklılıklarını / benzerliklerini ve ne zaman kullanılacağını göstermeye çalışacağız.
+
+
+             301 Yönlendirme - Maskelenmemiş
+
+
+             URL Yönlendirmesi 301, kalıcı bir maskesiz yönlendirme türüdür. Web siteniz kalıcı olarak yeni adrese taşınmışsa ve arama motorları tarafından
+              dizine eklenmesini istiyorsanız kullanılmalıdır (tüm trafik ve mevcut SEO değeri hedef URL'ye yönlendirilecektir). Web sayfası yeniden yönlendirmesi için
+              en verimli ve arama motoru dostu yöntem olarak kabul edilir.
+
+
+
+
+             301 yönlendirmeleri özellikle aşağıdaki durumlarda kullanışlıdır:
+
+             - Sitenizi yeni bir alana taşıdınız ve geçişi mümkün olduğunca sorunsuz hale getirmek istiyorsunuz.
+
+             - İnsanlar sitenize birkaç farklı URL üzerinden erişir. Örneğin, ana sayfanıza birden fazla şekilde (örneğin, http://example.com/home, http://home.example.com,
+             http://www.example.com veya https://www.example.com yoluyla) ulaşılabiliyorsa, bu URL'lerden birini tercih ettiğiniz (standart) hedef olarak seçmek ve diğer URL'lerden
+             ercih ettiğiniz URL'ye trafik göndermek için 301 yönlendirmelerini kullanmak iyi bir fikirdir.
+
+             - İki web sitesini birleştiriyorsunuz ve eski URL'lere verilen bağlantıların doğru sayfalara yönlendirildiğinden emin olmak istiyorsunuz.
+
+             Bir sayfayı bir URL'den diğerine taşırken, arama motorlarının 301'i keşfetmesi, tanıması ve yeni sayfayı selefinin sıralaması ve güveni ile kredilendirmesinin
+             biraz zaman alacağını lütfen unutmayın. Arama motoru örümcekleri verilen web sayfasını nadiren ziyaret ederse veya yeni URL düzgün bir şekilde çözülmezse bu işlem daha
+              uzun olabilir.
+
+
+             302 Yeniden Yönlendirme - Maskesiz
+
+
+             302 yönlendirmesi, geçici bir maskesiz yönlendirme türüdür. Belirli bir URL geçici olarak farklı bir adrese değiştirilmişse kullanılmalıdır. Arama motorları,
+              hedef URL'yi değil, orijinal URL'yi dizine ekler ve arama sonuçlarında orijinal URL'yi görüntüler.
+
+             Diyelim ki A URL'sini 302 yönlendirmesi yoluyla B URL'sine yönlendirmek istiyorsunuz. Ne zaman ihtiyacınız olabilir?
+
+             - Sayfa A bakımı olduğunda, ziyaretçileri geçici olarak geçici bir B Sayfasına yönlendirmek istersiniz. - URL A'yı dizine eklemek, ancak kullanıcıları başka bir
+              sayfaya yönlendirmek sizin için önemli olduğunda.
+
+
+
+             Örneğin, cep telefonları satıyorsunuz ve SEO dostu olan "En son telefon modeli" etiketli bir sayfanız var. Yeni bir telefon çıktığında her zaman güncellemek yerine,
+             yeni telefonla ayrı bir sayfa oluşturabilir ve 302'yi "En son telefon modeli" nden ona yönlendirebilirsiniz. Bu durumda, arama motorları "En son telefon modeli" sayfasını
+              dizine eklemeye devam ederken, ziyaretçiler her zaman en son telefona sahip sayfaya yönlendirilecektir.
+
+             - URL'ye bağlantıları tanıtıyorsunuz Bir nedenden dolayı içerik şu anda URL B. URL Frame - Maskelenmiş
+
+
+             URL Çerçevesi (URL maskeleme veya URL gizleme olarak da bilinir), istemciyi web sayfanıza yönlendirmek yerine, web sayfasının sunucudan bir çerçevede görüntülenmesi
+             dışında, URL Yönlendirme'ye benzer.
+
+
+             Bu yöntemle, ziyaretçinin tarayıcısı alan adınızı (örneğin, www.mydomain.com) ve başka bir kişinin web sitesini görüntüler.
+
+             Kulağa hoş geliyor, değil mi, ama eksileri var mı?
+
+             - URL Çerçevesi SEO için kötüdür.
+
+             Etki alanı maskeleme ile ilgili sorun, arama motorlarında yinelenen içerik oluşturmasıdır. Google ve diğer arama motorları, alan adlarınızı ve maskeli alanlarınızı
+              kopya olarak tanımlayacak ve birbiri üzerine hizmet vermeye karar verecektir; ve bazen, her zaman istediğiniz kişi değildir. Kısacası, aynı içeriği gösteren iki alan
+               adı için bir arama motoru varlığına sahip olmak mümkün değildir.
+
+             - Tüm web siteleri maskelemeye izin vermez.
+
+             URL maskelemesini barındırma sunucusu düzeyinde önlemek mümkündür, bu nedenle etki alanınız Yasak veya benzeri hatalar veriyorsa, büyük olasılıkla bu tür önlemler
+             hedef sunucu tarafında etkinleştirilir.
+
+
+             CNAME Kaydı
+
+
+             CNAME kaydı aslında bir yönlendirme türü kaydı değildir, ancak genellikle yanlışlıkla bu şekilde kullanılır. CNAME ve diğer yönlendirmeler arasındaki temel fark,
+             CNAME'in yalnızca bir DNS kayıt türü (A, TXT ve diğer DNS düzeyi kayıtlarına benzer) olması, 301, 302 yönlendirmelerinin ve URL çerçevelerinin sunucu destekli yönlendirmeleri
+              barındırmasıdır. Başka bir deyişle, CNAME kaydı hiçbir şeyi yönlendirmez, yalnızca alanınızı veya alt alanınızı hedef ana bilgisayar adının IP adresine yönlendirir.
+              Bu nedenle, hedef ana bilgisayar adının IP'si değişirse, CNAME aynı IP'ye sahip olacağından DNS kayıtlarınızı değiştirmeniz gerekmez.
+
+             Örneğin:
+
+             Barındırma sunucunuza bir A kaydı aracılığıyla bazı IP'lere domainA.com işaret XXX.XXX.XXX.XXX. CNAME kaydı oluşturmak için domainB.com domainA.com sahipsiniz:
+
+             CNAME domainB.com domainA.com Sonuç olarak, CNAME kaydı nedeniyle domainA.com'dan ayarlanmış bir IP adresi kullanacağından, hem domainB.com hem de XXX.XXX.XXX.XXX aynı
+              domainA.com
+
+             domainB.com IP adresinden çözümlenecektir. Bu nedenle, CNAME kaydı gerçek bir yeniden yönlendirme veya içerik oluşturmaz, yalnızca DNS kayıtlarını hedef etki alanından kopyalar.
+
+             DNS kayıtları aynı olduğundan, her iki etki alanının da aynı web sitesine çözümleneceğini düşünebilirsiniz, ancak bu yaygın bir yanılgıdır. CNAME kaydı, belirli bir
+             alanın web trafiğini hedef alanın IP adresine yönlendirir. Ziyaretçi bu IP adresine ulaştığında, yerel Apache (veya başka bir web sunucusu) yapılandırması etki alanının
+             nasıl işleneceğini belirleyecektir. Söz konusu etki alanı sunucuda yapılandırılmamışsa, sunucu varsayılan web sayfasını (varsa) görüntüler.
+
+             Bu, sunucunun nasıl yapılandırıldığına bağlı olarak CNAME kaydındaki hedef etki alanının web sayfası olabilir veya olmayabilir.
+
+             Bir sunucu bir CNAME kaydını doğru şekilde sunacak şekilde yapılandırılmış olsa bile, Wordpress, Joomla ve diğerleri gibi CMS'ye dayanan bazı gelişmiş web siteleri,
+             CNAME aracılığıyla bir etki alanını işaret ederseniz yanlış çözümlenebilir. Özellikle WordPress siteleri için, eklentiler dahili sayfadan sayfaya yönlendirmeleri
+             kolaylaştırmak ve olası çözüm sorunlarından kaçınmak için kullanılabilir. Son derece teknik WordPress yönlendirmeleri bile doğru eklenti ile sorunsuz bir şekilde uygulanabilir,
+              bu nedenle seçenekleri kontrol ettiğinizden emin olun. Bu web sitelerinin geliştirildiği etki alanına oldukça güvenilir olduklarından, varsayılan olarak,
+               2 veya daha fazla farklı alan adı altında çalışmaya uygun değildirler.
+
+             NOT: Çıplak bir alan adı (@ veya domain.com) için CNAME kaydı ayarlamanız önerilmez, çünkü bu kayıt alanınızla ilgili diğer kayıtları (MX veya TXT kayıtları gibi)
+             görünmez hale getirir. Sonuç olarak, posta hizmeti çalışmayı durdurur ve e-postalar düzgün bir şekilde teslim edilmez. www.domain.com için bir CNAME kaydı oluşturmak
+             ve ardından geçici bir çözüm olarak domain.com'dan www.domain.com'a yeniden yönlendirme ayarlamak mümkündür.
+
+
+             İşte bu kadar!
