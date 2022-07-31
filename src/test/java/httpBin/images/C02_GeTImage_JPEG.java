@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static io.restassured.RestAssured.given;
+
 public class C02_GeTImage_JPEG extends BaseHttpBin {
     @Test
     public void http() throws IOException {
@@ -31,7 +33,17 @@ Code	Details
     @Test
     public void req() {
         RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/image/jpeg").build();
-        Response
+        Response response=given()
+                .spec(req)
+                .accept("image/jpeg")
+                .when()
+                .get();
+        response.prettyPrint();
+        System.out.println(response.getContentType());
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("image/jpeg");
         /*
             Curl
 curl -X GET "http://httpbin.org/image/jpeg" -H "accept: image/jpeg"
@@ -44,6 +56,18 @@ Code	Details
     }
     @Test
     public void res() {
+        specHttpbin.pathParams("pp1","image","pp2","jpeg");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("image/jpeg")
+                .when()
+                .get("/{pp1}/{pp2}");
+        response.prettyPrint();
+        System.out.println(response.getContentType());
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("image/jpeg");
         /*
             Curl
 curl -X GET "http://httpbin.org/image/jpeg" -H "accept: image/jpeg"
