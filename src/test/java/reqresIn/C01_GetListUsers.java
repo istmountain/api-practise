@@ -1,17 +1,24 @@
 package reqresIn;
 
 import baseUrls.BaseReqresIn;
+import com.google.gson.JsonArray;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C01_GetListUsers extends BaseReqresIn {
     /*
@@ -34,6 +41,20 @@ public class C01_GetListUsers extends BaseReqresIn {
                 .get();
         response.prettyPrint();
         //expData
+        JSONObject exp=new JSONObject();
+        JSONArray data=new JSONArray();
+        JSONObject inner =new JSONObject();
+        inner.put("id", 1);
+        inner.put("email","george.bluth@reqres.in");
+        inner.put("first_name", "George");
+        inner.put("last_name", "Bluth");
+        inner.put("avatar", "https://reqres.in/img/faces/1-image.jpg");
+        data.put(0,inner);
+        exp.put("page", 1);
+        exp.put("per_page", 6);
+        exp.put("total", 12);
+        exp.put("total_pages", 2);
+        exp.put("data",data);
         /*
         {
     "page": 1,
@@ -49,8 +70,17 @@ public class C01_GetListUsers extends BaseReqresIn {
             "avatar": "https://reqres.in/img/faces/1-image.jpg"
         },
          */
+        //save response
+        JsonPath act=response.jsonPath();
+        //assert
+        assertEquals(exp.get("page"),act.get("page"));
+        assertEquals(exp.get("per_page"),act.get("per_page"));
+        assertEquals(exp.get("total"),act.get("total"));
+        assertEquals(exp.get("total_pages"),act.get("total_pages"));
+        assertEquals( ( (JSONArray)exp.getJSONArray("data").get(0)).get(0), ( ( (JSONObject)((JSONArray)act.get("data")).get(0)).get("id") ) ) ;
     }
     @Test
     public void res() {
+
     }
 }
