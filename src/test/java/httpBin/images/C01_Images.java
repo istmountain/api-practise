@@ -67,6 +67,17 @@ Code	Details
 
     @Test
     public void res() {
+        specHttpbin.pathParam("pp1","image");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("image/webp")
+                .get("/{pp1}");
+        response.prettyPrint();
+        System.out.println(response.getContentType());
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .contentType("image/webp");
                 /*
           Curl
 curl -X GET "http://httpbin.org/image" -H "accept: image/webp"
