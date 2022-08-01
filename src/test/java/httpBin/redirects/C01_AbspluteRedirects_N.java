@@ -27,7 +27,7 @@ public class C01_AbspluteRedirects_N extends BaseHttpBin {
     }
     @Test
     public void req() {
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/absolute-redirect/3").setContentType("accept: text/html").build();
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/absolute-redirect/3").setContentType("text/html").build();
         Response response=given()
                 .spec(req)
                 .when()
@@ -57,7 +57,7 @@ public class C01_AbspluteRedirects_N extends BaseHttpBin {
         JSONObject headers=new JSONObject();
         headers.put("Accept", "*/*");
         headers.put("Accept-Encoding", "gz1p,deflate");
-        headers.put("Content-Type", "accept: text/html; charset=ISO-8859-1");
+        headers.put("Content-Type", "text/html; charset=ISO-8859-1");
         headers.put("Host", "httpbin.org");
         headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
         exp.put("headers",headers);

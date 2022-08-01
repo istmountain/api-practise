@@ -14,6 +14,7 @@ import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfVali
 import static io.restassured.RestAssured.given;
 
 public class C02_DeleteRedirectTo_ extends BaseHttpBin {
+    //302/3XX Redirects to the given URL
     @Test
     public void http() throws IOException {
         URL url = new URL("http://httpbin.org/redirect-to");
