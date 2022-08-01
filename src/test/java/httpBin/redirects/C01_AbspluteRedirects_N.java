@@ -67,13 +67,90 @@ public class C01_AbspluteRedirects_N extends BaseHttpBin {
         //save response
         JsonPath act=response.jsonPath();
         //Asssertions
+          /*
+        {
+    "args": {
+
+    },
+    "headers": {
+        "Accept": "",
+        "Accept-Encoding": "gz1p,deflate",
+                "Content-Type": "accept: text/html; charset=ISO-8859-1",
+                "Host": "httpbin.org",
+                "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+                "X-Amzn-Trace-Id": "Root=1-62e7b5e3-1d0a987a7ba2514a03841ae2"
+    },
+            "origin": "88.236.86.164",
+            "url": "http://httpbin.org/get"
+}
+
+         */
        response.then()
                .assertThat()
                .statusCode(200);
-        assertEquals(exp.getJSONObject("args"),act.get("args"));
+       // assertEquals(exp.getJSONObject("args"),act.get("args"));
+        assertEquals(exp.getJSONObject("headers").get("Accept"),act.get("headers.Accept"));
+        assertEquals(exp.getJSONObject("headers").get("Accept-Encoding"),act.get("headers.Accept-Encoding"));
+        assertEquals(exp.getJSONObject("headers").get("Content-Type"),act.get("headers.Content-Type"));
+        assertEquals(exp.getJSONObject("headers").get("Host"),act.get("headers.Host"));
+        assertEquals(exp.getJSONObject("headers").get("User-Agent"),act.get("headers.User-Agent"));
+        assertEquals(exp.get("url"),act.get("url"));
+        assertEquals(exp.get("origin"),act.get("origin"));
     }
     @Test
     public void res() {
+        specHttpbin.pathParams("pp1","absolute-redirect","pp2",3);
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("text/html")
+                .when()
+                .get("/{pp1}/{pp2}");
+        response.prettyPrint();
+        //exp body
+        JSONObject exp=new JSONObject();
+        JSONObject args=new JSONObject();
+        JSONObject headers=new JSONObject();
+        headers.put("Accept", "text/html");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+      //  headers.put("Content-Type", "accept: text/html; charset=ISO-8859-1");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        exp.put("headers",headers);
+        exp.put("origin", "88.236.86.164");
+        exp.put("url", "http://httpbin.org/get");
+        exp.put("args",args);
+        //save response
+        JsonPath act=response.jsonPath();
+        //Asssertions
+          /*
+        {
+    "args": {
+
+    },
+    "headers": {
+        "Accept": "",
+        "Accept-Encoding": "gz1p,deflate",
+                "Content-Type": "accept: text/html; charset=ISO-8859-1",
+                "Host": "httpbin.org",
+                "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+                "X-Amzn-Trace-Id": "Root=1-62e7b5e3-1d0a987a7ba2514a03841ae2"
+    },
+            "origin": "88.236.86.164",
+            "url": "http://httpbin.org/get"
+}
+
+         */
+        response.then()
+                .assertThat()
+                .statusCode(200);
+        // assertEquals(exp.getJSONObject("args"),act.get("args"));
+        assertEquals(exp.getJSONObject("headers").get("Accept"),act.get("headers.Accept"));
+        assertEquals(exp.getJSONObject("headers").get("Accept-Encoding"),act.get("headers.Accept-Encoding"));
+       // assertEquals(exp.getJSONObject("headers").get("Content-Type"),act.get("headers.Content-Type"));
+        assertEquals(exp.getJSONObject("headers").get("Host"),act.get("headers.Host"));
+        assertEquals(exp.getJSONObject("headers").get("User-Agent"),act.get("headers.User-Agent"));
+        assertEquals(exp.get("url"),act.get("url"));
+        assertEquals(exp.get("origin"),act.get("origin"));
     }
     /*
     Curl
