@@ -1,9 +1,80 @@
 package httpBin.redirects;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import static io.restassured.RestAssured.enableLoggingOfRequestAndResponseIfValidationFails;
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C01_AbspluteRedirects_N extends BaseHttpBin {
+    @Test
+    public void http() throws IOException {
+        URL url = new URL("http://httpbin.org/image/jpeg");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
+    }
+    @Test
+    public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/absolute-redirect/3").setContentType("accept: text/html").build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .get();
+        response.prettyPrint();
+        /*
+        {
+    "args": {
 
+    },
+    "headers": {
+        "Accept": "",
+        "Accept-Encoding": "gz1p,deflate",
+                "Content-Type": "accept: text/html; charset=ISO-8859-1",
+                "Host": "httpbin.org",
+                "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+                "X-Amzn-Trace-Id": "Root=1-62e7b5e3-1d0a987a7ba2514a03841ae2"
+    },
+            "origin": "88.236.86.164",
+            "url": "http://httpbin.org/get"
+}
+
+         */
+        //exp body
+        JSONObject exp=new JSONObject();
+        JSONObject args=new JSONObject();
+        JSONObject headers=new JSONObject();
+        headers.put("Accept", "*/*");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+        headers.put("Content-Type", "accept: text/html; charset=ISO-8859-1");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        exp.put("headers",headers);
+        exp.put("origin", "88.236.86.164");
+        exp.put("url", "http://httpbin.org/get");
+        exp.put("args",args);
+        //save response
+        JsonPath act=response.jsonPath();
+        //Asssertions
+       response.then()
+               .assertThat()
+               .statusCode(200);
+        assertEquals(exp.getJSONObject("args"),act.get("args"));
+    }
+    @Test
+    public void res() {
+    }
     /*
     Curl
 curl -X GET "http://httpbin.org/absolute-redirect/3" -H "accept: text/html"
