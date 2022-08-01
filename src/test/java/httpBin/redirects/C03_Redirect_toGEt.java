@@ -23,7 +23,7 @@ public class C03_Redirect_toGEt extends BaseHttpBin {
     }
     @Test
     public void req() {
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/redirect-to?url=http://httpbin.org/absolute-redirect-to&status_code=200")
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fheaders&status_code=200")
                 .setContentType("text/html").build();
         Response response=given()
                 .spec(req)
@@ -35,9 +35,8 @@ public class C03_Redirect_toGEt extends BaseHttpBin {
     @Test
     public void res() {
         Response response=given()
-                .spec(specHttpbin)
                 .accept("text/html")
-                .when().get("http://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fabsolute-redirect%2F3&status_code=200");
+                .when().get("http://httpbin.org/redirect-to?url=http%3A%2F%2Fhttpbin.org%2Fheaders&status_code=200");
     }
     /*
     Curl
