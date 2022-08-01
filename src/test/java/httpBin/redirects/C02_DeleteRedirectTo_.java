@@ -27,7 +27,7 @@ public class C02_DeleteRedirectTo_ extends BaseHttpBin {
         Response response=given()
                 .spec(req)
                 .when()
-                .get();
+                .delete();
      response.prettyPrint();
      response.then()
              .assertThat()
@@ -37,6 +37,17 @@ public class C02_DeleteRedirectTo_ extends BaseHttpBin {
     }
     @Test
     public void res() {
+        specHttpbin.pathParam("pp1","redirect-to");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("accept: text/html")
+                .when()
+                .delete("/{pp1}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(500);
     }
     /*
 Curl
