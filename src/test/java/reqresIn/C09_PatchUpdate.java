@@ -23,7 +23,7 @@ public class C09_PatchUpdate extends BaseReqresIn {
     public void http() throws IOException {
         URL url = new URL("https://reqres.in/api/users/2");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        http.setRequestMethod("PUT");
+        http.setRequestMethod("PATCH");
         http.setDoOutput(true);
         http.setRequestProperty("Content-Type", "application/json");
 
@@ -65,7 +65,7 @@ Response
                 .spec(req)
                 .contentType(ContentType.JSON)
                 .when()
-                .put();
+                .patch();
         response.prettyPrint();
 
 
@@ -113,7 +113,7 @@ Response
                 .contentType(ContentType.JSON)
                 .body(body.toString())
                 .when()
-                .put("/{pp1}/{pp2}/{pp3}");
+                .patch("/{pp1}/{pp2}/{pp3}");
         response.prettyPrint();
         //response.prettyPrint();
         response
