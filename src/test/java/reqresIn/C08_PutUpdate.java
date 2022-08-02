@@ -84,7 +84,7 @@ Response
                 .spec(req)
                 .contentType(ContentType.JSON)
                 .when()
-                .post();
+                .put();
         response.prettyPrint();
 
 
@@ -95,7 +95,7 @@ Response
         response
                 .then()
                 .assertThat()
-                .statusCode(201);
+                .statusCode(200);
         //save response
         JsonPath act=response.jsonPath();
         assertEquals(exp.get("name"),act.get("name"));
@@ -132,14 +132,13 @@ Response
                 .contentType(ContentType.JSON)
                 .body(body.toString())
                 .when()
-                .post("/{pp1}/{pp2}/{pp3}");
+                .put("/{pp1}/{pp2}/{pp3}");
         response.prettyPrint();
         //response.prettyPrint();
         response
                 .then()
                 .assertThat()
-                .statusCode(200)
-                .body("id", Matchers.notNullValue());
+                .statusCode(200);
         //save response
         JSONObject exp=new JSONObject();
         exp.put("name", "morpheus");
