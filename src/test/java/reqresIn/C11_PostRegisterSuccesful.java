@@ -3,6 +3,7 @@ package reqresIn;
 import baseUrls.BaseReqresIn;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C11_PostRegisterSuccesful extends BaseReqresIn {
 
@@ -63,7 +65,13 @@ public class C11_PostRegisterSuccesful extends BaseReqresIn {
                 .then()
                 .assertThat()
                 .statusCode(200);
-
+        //save response
+        JSONObject exp=new JSONObject();
+        exp.put("password", "pistol");
+        exp.put( "email", "eve.holt@reqres.in");
+        JsonPath act=response.jsonPath();
+        assertEquals(exp.get("password"),act.get("password"));
+        assertEquals(exp.get("email"),act.get("email"));
 
         /*
     Request
@@ -112,9 +120,17 @@ Response
                 .body(body.toString())
                 .when()
                 .post("/{pp1}/{pp2}/{pp3}");
+        response.prettyPrint();
         response
                 .then()
                 .assertThat()
-                .statusCode(200);
+                .statusCode(201);
+        //save response
+        JSONObject exp=new JSONObject();
+        exp.put("password", "pistol");
+        exp.put( "email", "eve.holt@reqres.in");
+        JsonPath act=response.jsonPath();
+        assertEquals(exp.get("password"),act.get("password"));
+        assertEquals(exp.get("email"),act.get("email"));
     }
 }
