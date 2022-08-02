@@ -2,9 +2,13 @@ package reqresIn;
 
 import baseUrls.BaseReqresIn;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.hamcrest.Matchers;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,6 +18,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C07_PostCreate extends BaseReqresIn {
     /*
@@ -42,17 +47,13 @@ public class C07_PostCreate extends BaseReqresIn {
         JSONObject body=new JSONObject();
         body.put("name", "morpheus");
         body.put("job", "leader");
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://reqres.in/api/users").setBody(body.toString()).build();
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://reqres.in/api/users").setAccept(ContentType.JSON).setBody(body.toString()).build();
         Response response=given()
                 .spec(req)
+                .contentType(ContentType.JSON)
                 .when()
                 .post();
         response.prettyPrint();
-        response
-                .then()
-                .assertThat()
-                .statusCode(201);
-        //asseert
 
         /*
          {
@@ -62,7 +63,10 @@ public class C07_PostCreate extends BaseReqresIn {
 /*
 Response
 201
-
+{
+    "id": "176",
+    "createdAt": "2022-08-02T13:06:46.929Z"
+}
 {
     "name": "morpheus",
     "job": "leader",
@@ -70,20 +74,54 @@ Response
     "createdAt": "2022-08-02T12:56:38.736Z"
 }
          */
+        JSONObject exp=new JSONObject();
+        exp.put("name", "morpheus");
+        exp.put("job", "leader");
+        //assert
+        response
+                .then()
+                .assertThat()
+                .statusCode(201);
+        //save response
+        JsonPath act=response.jsonPath();
+        assertEquals(exp.get("name"),act.get("name"));
+        assertEquals(exp.get("job"),act.get("job"));
+
     }
     @Test
-    public void res() { //https://reqres.in/api/users/23
-        specReqres.pathParams("pp1","api","pp2","users","pp3",23);
+    public void res() { //https://reqres.in/api/users
+        specReqres.pathParams("pp1","api","pp2","users");
+        JSONObject body=new JSONObject();
+        body.put("name", "morpheus");
+        body.put("job", "leader");
         Response response=given()
                 .spec(specReqres)
+                .contentType(ContentType.JSON)
+                .body(body.toString())
                 .when()
-                .get("/{pp1}/{pp2}/{pp3}");
+                .post("/{pp1}/{pp2}");
         response.prettyPrint();
         //response.prettyPrint();
         response
                 .then()
                 .assertThat()
-                .statusCode(404);
+                .statusCode(201)
+                .body("id", Matchers.notNullValue());
+        //save response
+        JSONObject exp=new JSONObject();
+        exp.put("name", "morpheus");
+        exp.put("job", "leader");
+        JsonPath act=response.jsonPath();
+        assertEquals(exp.get("name"),act.get("name"));
+        assertEquals(exp.get("job"),act.get("job"));
+        /*
+        {
+    "name": "morpheus",
+    "job": "leader",
+    "id": "863",
+    "createdAt": "2022-08-02T13:18:17.847Z"
+}
+         */
     }
 
 }
