@@ -60,8 +60,8 @@ public class C14_PostLoginUnsuccesful extends BaseReqresIn {
         JsonPath act=response.jsonPath();
         response.then()
                 .assertThat()
-                .statusCode(200);
-        assertEquals(exp.get("token"),act.get("token"));
+                .statusCode(400);
+        assertEquals(exp.get("error"),act.get("error"));
 
     }
     @Test
@@ -69,8 +69,7 @@ public class C14_PostLoginUnsuccesful extends BaseReqresIn {
         //"https://reqres.in/api/login"
         specReqres.pathParams("pp1","api","pp2","login");
         JSONObject body=new JSONObject();
-        body.put("email", "eve.holt@reqres.in");
-        body.put("password", "cityslicka");
+        body.put( "email", "peter@klaven");
         Response response=given()
                 .spec(specReqres)
                 .contentType(ContentType.JSON)
@@ -80,12 +79,12 @@ public class C14_PostLoginUnsuccesful extends BaseReqresIn {
         response.prettyPrint();
         //asssert
         JSONObject exp=new JSONObject();
-        exp.put("token", "QpwL5tke4Pnpja7X4");
+        exp.put("error", "Missing password");
         //save response
         JsonPath act=response.jsonPath();
         response.then()
                 .assertThat()
-                .statusCode(200);
-        assertEquals(exp.get("token"),act.get("token"));
+                .statusCode(400);
+        assertEquals(exp.get("error"),act.get("error"));
     }
 }
