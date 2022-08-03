@@ -9,6 +9,5 @@ public class BaseReqresIn {
     @Before
     public void setUo(){
         specReqres=new RequestSpecBuilder().setBaseUri("https://reqres.in/").build();
-
     }
 }
