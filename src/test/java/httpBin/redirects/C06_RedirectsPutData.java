@@ -101,5 +101,18 @@ Request URL
 http://httpbin.org/redirect-to
 Server response
          */
+        specHttpbin.pathParam("pp1","redirect-to");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("text/html")
+                .contentType("application/x-www-form-urlencoded")
+                .formParam("url","http://www.amazon.com&status_code=10")
+                .when()
+                .put("/{pp1}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(500);
     }
 }
