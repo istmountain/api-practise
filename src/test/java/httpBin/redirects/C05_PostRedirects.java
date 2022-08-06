@@ -13,6 +13,11 @@ import java.net.URL;
 import static io.restassured.RestAssured.given;
 
 public class C05_PostRedirects extends BaseHttpBin {
+    /*
+    POST
+/redirect-to
+302/3XX Redirects to the given URL.
+     */
     @Test
     public void http() throws IOException {
         URL url = new URL("http://httpbin.org/redirect-to");

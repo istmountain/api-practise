@@ -14,6 +14,11 @@ import java.net.URL;
 import static io.restassured.RestAssured.given;
 
 public class C04_Redirects extends BaseHttpBin {
+    /*
+    PATCH
+/redirect-to
+302/3XX Redirects to the given URL.
+     */
     @Test
     public void http() throws IOException {
         URL url = new URL("http://httpbin.org/redirect-to");
@@ -29,7 +34,7 @@ public class C04_Redirects extends BaseHttpBin {
         Response response=given()
                 .spec(req)
                 .when()
-                .get();
+                .patch();
         response.then()
                 .assertThat()
                 .statusCode(500);
@@ -41,7 +46,7 @@ public class C04_Redirects extends BaseHttpBin {
                 .spec(specHttpbin)
                 .accept(ContentType.JSON)
                 .when()
-                .get("/{pp1}");
+                .patch("/{pp1}");
         response.then()
                 .assertThat()
                 .statusCode(500);

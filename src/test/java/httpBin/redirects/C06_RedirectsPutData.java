@@ -17,6 +17,9 @@ import static io.restassured.RestAssured.given;
 
 public class C06_RedirectsPutData extends BaseHttpBin {
     /*
+    PUT
+/redirect-to
+302/3XX Redirects to the given URL.
     Curl
 curl -X PUT "http://httpbin.org/redirect-to" -H "accept: text/html" -H "Content-Type: application/x-www-form-urlencoded" -d "url=http%3A%2F%2Fwww.amazon.com&status_code=10"
 Request URL
