@@ -31,5 +31,18 @@ public class C05_PostRedirects extends BaseHttpBin {
     }
     @Test
     public void res() {
+        specHttpbin.pathParam("pp1","redirect-to");
+        Response response=given()
+                .spec(specHttpbin)
+                .formParam("url","https://www.automationexercise.com&status_code=200")
+                .contentType("application/x-www-form-urlencoded")
+                .accept("text/html")
+                .when()
+                .post("/{pp1}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(504);
     }
 }
