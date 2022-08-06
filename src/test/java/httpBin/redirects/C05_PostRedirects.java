@@ -6,11 +6,21 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import static io.restassured.RestAssured.given;
 
 public class C05_PostRedirects extends BaseHttpBin {
     @Test
-    public void http() {
+    public void http() throws IOException {
+        URL url = new URL("http://httpbin.org/redirect-to");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestProperty("Accept", "application/json");
+
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
 
     }
     @Test
