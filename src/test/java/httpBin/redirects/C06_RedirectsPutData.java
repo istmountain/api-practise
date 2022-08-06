@@ -1,6 +1,9 @@
 package httpBin.redirects;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -9,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import static io.restassured.RestAssured.given;
 
 public class C06_RedirectsPutData extends BaseHttpBin {
     /*
@@ -73,6 +78,19 @@ Request URL
 http://httpbin.org/redirect-to
 Server response
          */
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/redirect-to")
+                .addFormParam("url","http://www.amazon.com&status_code=10")
+                .setContentType("application/x-www-form-urlencoded").setAccept("text/html")
+                .build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .put();
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(500);
     }
     @Test
     public void res() {
