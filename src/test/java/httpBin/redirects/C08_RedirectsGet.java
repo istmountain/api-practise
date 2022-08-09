@@ -141,8 +141,6 @@ Response headers
         assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
         assertEquals(expected.get("origin"),actual.get("origin"));
         assertEquals(expected.get("url"),actual.get("url"));
-
-
         response
                 .then()
                 .assertThat()

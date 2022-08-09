@@ -105,14 +105,15 @@ Response headers
         //expected body
         JSONObject headers=new JSONObject();
         JSONObject expected=new JSONObject();
-        headers.put("Accept", "text/html");
+        headers.put("Accept", "application/json");
         headers.put("Accept-Encoding", "gz1p,deflate");
         headers.put("Host", "httpbin.org");
         headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
         expected.put("origin","176.42.164.88");
-        expected.put("url", "http://httpbin.org/get");
+        expected.put("url", "http://httpbin.org/anything");
         expected.put("headers",headers);
-        expected.put()
+        expected.put("json", "null");
+        expected.put("method", "GET");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -122,7 +123,8 @@ Response headers
         assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
         assertEquals(expected.get("origin"),actual.get("origin"));
         assertEquals(expected.get("url"),actual.get("url"));
-        assertEquals(expected.get(),actual.get());
+        assertEquals(expected.get("method"),actual.get("method"));
+        assertEquals(expected.get("json"),actual.get("json"));
 
 
     }
