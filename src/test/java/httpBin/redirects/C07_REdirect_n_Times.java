@@ -1,7 +1,24 @@
 package httpBin.redirects;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import netscape.javascript.JSException;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C07_REdirect_n_Times extends BaseHttpBin {
     /*
@@ -38,7 +55,7 @@ Response headers
      */
 
     @Test
-    public void http() {
+    public void http() throws IOException {
         /*
             Curl
 curl -X GET "http://httpbin.org/redirect/4" -H "accept: text/html"
@@ -48,6 +65,21 @@ Server response
 Code	Details
 200
          */
+        URL url = new URL("http://httpbin.org/redirect-to");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("PUT");
+        http.setDoOutput(true);
+        http.setRequestProperty("Accept", "text/html");
+        http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        String data = "http://www.amazon.com&status_code=10%22";
+
+        byte[] out = data.getBytes(StandardCharsets.UTF_8);
+
+        OutputStream stream = http.getOutputStream();
+        stream.write(out);
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
 
     }
     @Test
@@ -61,6 +93,54 @@ Server response
 Code	Details
 200
          */
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/redirect/4").setAccept("text/html").build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .get();
+        System.out.println(response.statusCode());
+        response.prettyPrint();
+        /*
+        {
+    "args": {
+
+    },
+    "headers": {
+        "Accept": "text/html",
+        "Accept-Encoding": "gz1p,deflate",
+        "Host": "httpbin.org",
+        "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+        "X-Amzn-Trace-Id": "Root=1-62f2bc24-29b1b0567f0910025f3102cd"
+    },
+    "origin": "176.42.164.88",
+    "url": "http://httpbin.org/get"
+}
+         */
+        //expected body
+        JSONObject headers=new JSONObject();
+        JSONObject expected=new JSONObject();
+        headers.put("Accept", "text/html");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        expected.put("origin","176.42.164.88");
+        expected.put("url", "http://httpbin.org/get");
+        expected.put("headers",headers);
+        // save response
+        JsonPath actual=response.jsonPath();
+        //assertions
+        assertEquals(expected.getJSONObject("headers").get("Accept"),actual.get("headers.Accept"));
+        assertEquals(expected.getJSONObject("headers").get("Accept-Encoding"),actual.get("headers.Accept-Encoding"));
+        assertEquals(expected.getJSONObject("headers").get("Host"),actual.get("headers.Host"));
+        assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
+        assertEquals(expected.get("origin"),actual.get("origin"));
+        assertEquals(expected.get("url"),actual.get("url"));
+
+
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
     @Test
     public void res() {
