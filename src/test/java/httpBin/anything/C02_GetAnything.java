@@ -15,10 +15,10 @@ import java.net.URL;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
-public class C01_DeleteAnything extends BaseHttpBin {
+public class C02_GetAnything extends BaseHttpBin {
     /*
     Curl
-curl -X DELETE "http://httpbin.org/anything" -H "accept: application/json"
+curl -X GET "http://httpbin.org/anything" -H "accept: application/json"
 Request URL
 http://httpbin.org/anything
 Server response
@@ -36,72 +36,40 @@ Download
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "tr,en;q=0.9,en-GB;q=0.8,en-US;q=0.7",
     "Host": "httpbin.org",
-    "Origin": "http://httpbin.org",
     "Referer": "http://httpbin.org/",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.47",
-    "X-Amzn-Trace-Id": "Root=1-62f2c848-69bfdc053e2c8d8203f44de4"
+    "X-Amzn-Trace-Id": "Root=1-62f2cbe4-2f7aec5d0c8a0ec824223ab2"
   },
   "json": null,
-  "method": "DELETE",
+  "method": "GET",
   "origin": "176.42.164.88",
   "url": "http://httpbin.org/anything"
 }
 Response headers
  access-control-allow-credentials: true
- access-control-allow-origin: http://httpbin.org
+ access-control-allow-origin: *
  connection: keep-alive
- content-length: 660
+ content-length: 620
  content-type: application/json
- date: Tue, 09 Aug 2022 20:49:12 GMT
+ date: Tue, 09 Aug 2022 21:04:36 GMT
  server: gunicorn/19.9.0
      */
+
     @Test
-    public void httpDelete() throws IOException {
+    public void http() throws IOException {
         URL url = new URL("http://httpbin.org/anything");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        http.setRequestMethod("DELETE");
-        http.setRequestProperty("Authorization", "Basic ZWNlOjEyMzQ1Njc=");
-
-        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        System.out.println(http.getResponseCode() + "http://httpbin.org/anything" + http.getResponseMessage());
         http.disconnect();
     }
-
     @Test
     public void req() {
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/anything")
-                .setAccept("application/json").build();
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/anything").setAccept("application/json").build();
         Response response=given()
                 .spec(req)
-                .when().delete();
+                .when()
+                .get();
         response.prettyPrint();
-     response.then()
-             .assertThat()
-             .statusCode(200);
-     /*
-     {
-    "args": {
-
-    },
-    "data": "",
-    "files": {
-
-    },
-    "form": {
-
-    },
-    "headers": {
-        "Accept": "application/json",
-        "Accept-Encoding": "gz1p,deflate",
-        "Host": "httpbin.org",
-        "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
-        "X-Amzn-Trace-Id": "Root=1-62f2ca40-7958b8b61df8cad173190dba"
-    },
-    "json": null,
-    "method": "GET",
-    "origin": "176.42.164.88",
-    "url": "http://httpbin.org/anything"
-}
-      */
         //expected body
         JSONObject headers=new JSONObject();
         JSONObject expected=new JSONObject();
@@ -113,7 +81,7 @@ Response headers
         expected.put("url", "http://httpbin.org/anything");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "DELETE");
+        expected.put("method", "GET");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -128,7 +96,6 @@ Response headers
 
 
     }
-
     @Test
     public void res() {
         //http://httpbin.org/anything
@@ -137,7 +104,7 @@ Response headers
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .delete("/{pp1}");
+                .get("/{pp1}");
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -150,7 +117,7 @@ Response headers
         expected.put("url", "http://httpbin.org/anything");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "DELETE");
+        expected.put("method", "GET");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
