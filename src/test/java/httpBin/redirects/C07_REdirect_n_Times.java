@@ -65,22 +65,10 @@ Server response
 Code	Details
 200
          */
-        URL url = new URL("http://httpbin.org/redirect-to");
+        URL url = new URL("http://httpbin.org/redirect/4");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        http.setRequestMethod("PUT");
-        http.setDoOutput(true);
-        http.setRequestProperty("Accept", "text/html");
-        http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        String data = "http://www.amazon.com&status_code=10%22";
-
-        byte[] out = data.getBytes(StandardCharsets.UTF_8);
-
-        OutputStream stream = http.getOutputStream();
-        stream.write(out);
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
-
     }
     @Test
     public void req() {
