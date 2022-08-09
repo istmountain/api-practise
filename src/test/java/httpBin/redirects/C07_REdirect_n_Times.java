@@ -153,6 +153,55 @@ Server response
 Code	Details
 200
          */
+        specHttpbin.pathParams("pp1","redirect","pp2",4);
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("text/html")
+                .when()
+                .get("/{pp1}/{pp2}");
+        System.out.println(response.statusCode());
+        response.prettyPrint();
+        /*
+        {
+    "args": {
+
+    },
+    "headers": {
+        "Accept": "text/html",
+        "Accept-Encoding": "gz1p,deflate",
+        "Host": "httpbin.org",
+        "User-Agent": "Apache-HttpClient/4.5.3 (Java/18.0.1.1)",
+        "X-Amzn-Trace-Id": "Root=1-62f2bc24-29b1b0567f0910025f3102cd"
+    },
+    "origin": "176.42.164.88",
+    "url": "http://httpbin.org/get"
+}
+         */
+        //expected body
+        JSONObject headers=new JSONObject();
+        JSONObject expected=new JSONObject();
+        headers.put("Accept", "text/html");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        expected.put("origin","176.42.164.88");
+        expected.put("url", "http://httpbin.org/get");
+        expected.put("headers",headers);
+        // save response
+        JsonPath actual=response.jsonPath();
+        //assertions
+        assertEquals(expected.getJSONObject("headers").get("Accept"),actual.get("headers.Accept"));
+        assertEquals(expected.getJSONObject("headers").get("Accept-Encoding"),actual.get("headers.Accept-Encoding"));
+        assertEquals(expected.getJSONObject("headers").get("Host"),actual.get("headers.Host"));
+        assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
+        assertEquals(expected.get("origin"),actual.get("origin"));
+        assertEquals(expected.get("url"),actual.get("url"));
+
+
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
 
 }
