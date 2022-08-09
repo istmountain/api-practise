@@ -97,4 +97,40 @@ Response headers
 
 
     }
+    @Test
+    public void res() {
+        //http://httpbin.org/anything
+        specHttpbin.pathParam("pp1","anything");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("application/json")
+                .when()
+                .post("/{pp1}");
+        response.prettyPrint();
+        //expected body
+        JSONObject headers=new JSONObject();
+        JSONObject expected=new JSONObject();
+        headers.put("Accept", "application/json");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        expected.put("origin","176.42.164.88");
+        expected.put("url", "http://httpbin.org/anything");
+        expected.put("headers",headers);
+        expected.put("json", "null");
+        expected.put("method", "POST");
+        // save response
+        JsonPath actual=response.jsonPath();
+        //assertions
+        assertEquals(expected.getJSONObject("headers").get("Accept"),actual.get("headers.Accept"));
+        assertEquals(expected.getJSONObject("headers").get("Accept-Encoding"),actual.get("headers.Accept-Encoding"));
+        assertEquals(expected.getJSONObject("headers").get("Host"),actual.get("headers.Host"));
+        assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
+        assertEquals(expected.get("origin"),actual.get("origin"));
+        assertEquals(expected.get("url"),actual.get("url"));
+        assertEquals(expected.get("method"),actual.get("method"));
+        assertEquals(expected.get("json"),actual.get("json"));
+
+
+    }
 }
