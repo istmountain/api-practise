@@ -1,8 +1,13 @@
 package httpBin.anything;
 
 import baseUrls.BaseHttpBin;
+import org.junit.Test;
 
-public class C06_PutAnything extends BaseHttpBin {
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class C05_PutAnything extends BaseHttpBin {
     /*
 
 Code	Details
@@ -39,4 +44,12 @@ Response headers
  date: Wed, 10 Aug 2022 14:29:50 GMT
  server: gunicorn/19.9.0
      */
+    @Test
+    public void http() throws IOException {
+        URL url = new URL("http://httpbin.org/anything");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        System.out.println(http.getResponseCode() + "http://httpbin.org/anything" + http.getResponseMessage());
+        http.disconnect();
+    }
+
 }
