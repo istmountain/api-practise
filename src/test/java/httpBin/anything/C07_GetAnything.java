@@ -76,9 +76,9 @@ Code	Details
     }
     @Test
     public void req() {
-           /*
-            Curl
-curl -X DELETE "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+            /*
+    Curl
+curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
 Request URL
 http://httpbin.org/anything/{anything}
 Server response
@@ -89,7 +89,7 @@ Code	Details
         Response response=given()
                 .spec(req)
                 .when()
-                .delete();
+                .get();
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -102,7 +102,7 @@ Code	Details
         expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "DELETE");
+        expected.put("method", "GET");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -119,9 +119,9 @@ Code	Details
     }
     @Test
     public void res() {
-           /*
-            Curl
-curl -X DELETE "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+            /*
+    Curl
+curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
 Request URL
 http://httpbin.org/anything/{anything}
 Server response
@@ -134,7 +134,7 @@ Code	Details
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .delete("/{pp1}/{pp2}");
+                .get("/{pp1}/{pp2}");
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -147,7 +147,7 @@ Code	Details
         expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "DELETE");
+        expected.put("method", "GET");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
