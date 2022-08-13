@@ -1,6 +1,19 @@
 package httpBin.anything;
 
 import baseUrls.BaseHttpBin;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C09_PostAnything extends BaseHttpBin {
     /*
@@ -47,4 +60,106 @@ Code	Description
 200
 Anything passed in request
      */
+    @Test
+    public void http() throws IOException {
+        /*
+    Curl
+curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+         */
+        URL url = new URL("http://httpbin.org/anything/image");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        System.out.println(http.getResponseCode() + "http://httpbin.org/anything/image" + http.getResponseMessage());
+        http.disconnect();
+    }
+    @Test
+    public void req() {
+            /*
+    Curl
+curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+         */
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/anything/image").setAccept("application/json").build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .patch();
+        response.prettyPrint();
+        //expected body
+        JSONObject headers=new JSONObject();
+        JSONObject expected=new JSONObject();
+        headers.put("Accept", "application/json");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        expected.put("origin","176.90.132.203");
+        expected.put("url", "http://httpbin.org/anything/image");
+        expected.put("headers",headers);
+        expected.put("json", "null");
+        expected.put("method", "PATCH");
+        // save response
+        JsonPath actual=response.jsonPath();
+        //assertions
+        assertEquals(expected.getJSONObject("headers").get("Accept"),actual.get("headers.Accept"));
+        assertEquals(expected.getJSONObject("headers").get("Accept-Encoding"),actual.get("headers.Accept-Encoding"));
+        assertEquals(expected.getJSONObject("headers").get("Host"),actual.get("headers.Host"));
+        assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
+        assertEquals(expected.get("origin"),actual.get("origin"));
+        assertEquals(expected.get("url"),actual.get("url"));
+        assertEquals(expected.get("method"),actual.get("method"));
+
+
+
+    }
+    @Test
+    public void res() {
+            /*
+    Curl
+curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+         */
+        //http://httpbin.org/anything
+        specHttpbin.pathParams("pp1","anything","pp2","image");
+        Response response=given()
+                .spec(specHttpbin)
+                .accept("application/json")
+                .when()
+                .patch("/{pp1}/{pp2}");
+        response.prettyPrint();
+        //expected body
+        JSONObject headers=new JSONObject();
+        JSONObject expected=new JSONObject();
+        headers.put("Accept", "application/json");
+        headers.put("Accept-Encoding", "gz1p,deflate");
+        headers.put("Host", "httpbin.org");
+        headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
+        expected.put("origin","176.90.132.203");
+        expected.put("url", "http://httpbin.org/anything/image");
+        expected.put("headers",headers);
+        expected.put("json", "null");
+        expected.put("method", "PATCH");
+        // save response
+        JsonPath actual=response.jsonPath();
+        //assertions
+        assertEquals(expected.getJSONObject("headers").get("Accept"),actual.get("headers.Accept"));
+        assertEquals(expected.getJSONObject("headers").get("Accept-Encoding"),actual.get("headers.Accept-Encoding"));
+        assertEquals(expected.getJSONObject("headers").get("Host"),actual.get("headers.Host"));
+        assertEquals(expected.getJSONObject("headers").get("User-Agent"),actual.get("headers.User-Agent"));
+        assertEquals(expected.get("origin"),actual.get("origin"));
+        assertEquals(expected.get("url"),actual.get("url"));
+        assertEquals(expected.get("method"),actual.get("method"));
+
+    }
 }
