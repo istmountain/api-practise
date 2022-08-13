@@ -16,8 +16,56 @@ import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
 public class C06_DeleteAnything extends BaseHttpBin {
+    /*
+    Curl
+curl -X DELETE "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+Response body
+Download
+{
+  "args": {},
+  "data": "",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept": "application/json",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "tr,en;q=0.9,en-GB;q=0.8,en-US;q=0.7",
+    "Host": "httpbin.org",
+    "Origin": "http://httpbin.org",
+    "Referer": "http://httpbin.org/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.47",
+    "X-Amzn-Trace-Id": "Root=1-62f80ec4-7b3fe86d135cc7fc24695aab"
+  },
+  "json": null,
+  "method": "DELETE",
+  "origin": "176.90.132.203",
+  "url": "http://httpbin.org/anything/{anything}"
+}
+Response headers
+ access-control-allow-credentials: true
+ access-control-allow-origin: http://httpbin.org
+ connection: keep-alive
+ content-length: 672
+ content-type: application/json
+ date: Sat, 13 Aug 2022 20:51:16 GMT
+ server: gunicorn/19.9.0
+     */
     @Test
     public void http() throws IOException {
+        /*
+            Curl
+curl -X DELETE "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+         */
         URL url = new URL("http://httpbin.org/anything");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         System.out.println(http.getResponseCode() + "http://httpbin.org/anything" + http.getResponseMessage());
@@ -25,11 +73,20 @@ public class C06_DeleteAnything extends BaseHttpBin {
     }
     @Test
     public void req() {
+           /*
+            Curl
+curl -X DELETE "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+         */
         RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/anything").setAccept("application/json").build();
         Response response=given()
                 .spec(req)
                 .when()
-                .post();
+                .delete();
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -59,13 +116,22 @@ public class C06_DeleteAnything extends BaseHttpBin {
     }
     @Test
     public void res() {
+           /*
+            Curl
+curl -X DELETE "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+Request URL
+http://httpbin.org/anything/{anything}
+Server response
+Code	Details
+200
+         */
         //http://httpbin.org/anything
         specHttpbin.pathParam("pp1","anything");
         Response response=given()
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .post("/{pp1}");
+                .delete("/{pp1}");
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
