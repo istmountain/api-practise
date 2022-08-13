@@ -82,7 +82,7 @@ Server response
 Code	Details
 200
          */
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/anything").setAccept("application/json").build();
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://httpbin.org/anything/image").setAccept("application/json").build();
         Response response=given()
                 .spec(req)
                 .when()
@@ -95,11 +95,11 @@ Code	Details
         headers.put("Accept-Encoding", "gz1p,deflate");
         headers.put("Host", "httpbin.org");
         headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
-        expected.put("origin","176.42.164.88");
-        expected.put("url", "http://httpbin.org/anything");
+        expected.put("origin","176.90.132.203");
+        expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "POST");
+        expected.put("method", "DELETE");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -110,7 +110,7 @@ Code	Details
         assertEquals(expected.get("origin"),actual.get("origin"));
         assertEquals(expected.get("url"),actual.get("url"));
         assertEquals(expected.get("method"),actual.get("method"));
-        assertEquals(expected.get("json"),actual.get("json"));
+
 
 
     }
@@ -140,11 +140,11 @@ Code	Details
         headers.put("Accept-Encoding", "gz1p,deflate");
         headers.put("Host", "httpbin.org");
         headers.put("User-Agent", "Apache-HttpClient/4.5.3 (Java/18.0.1.1)");
-        expected.put("origin","176.42.164.88");
-        expected.put("url", "http://httpbin.org/anything");
+        expected.put("origin","176.90.132.203");
+        expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "POST");
+        expected.put("method", "DELETE");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -155,8 +155,6 @@ Code	Details
         assertEquals(expected.get("origin"),actual.get("origin"));
         assertEquals(expected.get("url"),actual.get("url"));
         assertEquals(expected.get("method"),actual.get("method"));
-        assertEquals(expected.get("json"),actual.get("json"));
-
 
     }
 
