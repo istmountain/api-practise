@@ -80,7 +80,7 @@ Code	Details
     public void req() {
             /*
     Curl
-curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+curl -X PUT "http://httpbin.org/anything/{anything}" -H "accept: application/json"
 Request URL
 http://httpbin.org/anything/{anything}
 Server response
@@ -91,7 +91,7 @@ Code	Details
         Response response=given()
                 .spec(req)
                 .when()
-                .post();
+                .put();
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -104,7 +104,7 @@ Code	Details
         expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "POST");
+        expected.put("method", "PUT");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -123,7 +123,7 @@ Code	Details
     public void res() {
             /*
     Curl
-curl -X GET "http://httpbin.org/anything/{anything}" -H "accept: application/json"
+curl -X PUT "http://httpbin.org/anything/{anything}" -H "accept: application/json"
 Request URL
 http://httpbin.org/anything/{anything}
 Server response
@@ -136,7 +136,7 @@ Code	Details
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .post("/{pp1}/{pp2}");
+                .put("/{pp1}/{pp2}");
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -149,7 +149,7 @@ Code	Details
         expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "POST");
+        expected.put("method", "PUT");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
