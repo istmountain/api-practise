@@ -126,12 +126,12 @@ Code	Details
 200
          */
         //http://httpbin.org/anything
-        specHttpbin.pathParam("pp1","anything");
+        specHttpbin.pathParams("pp1","anything","pp2","image");
         Response response=given()
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .delete("/{pp1}");
+                .delete("/{pp1}/{pp2}");
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
