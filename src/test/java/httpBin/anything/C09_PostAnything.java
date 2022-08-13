@@ -91,7 +91,7 @@ Code	Details
         Response response=given()
                 .spec(req)
                 .when()
-                .patch();
+                .post();
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -104,7 +104,7 @@ Code	Details
         expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "PATCH");
+        expected.put("method", "POST");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
@@ -136,7 +136,7 @@ Code	Details
                 .spec(specHttpbin)
                 .accept("application/json")
                 .when()
-                .patch("/{pp1}/{pp2}");
+                .post("/{pp1}/{pp2}");
         response.prettyPrint();
         //expected body
         JSONObject headers=new JSONObject();
@@ -149,7 +149,7 @@ Code	Details
         expected.put("url", "http://httpbin.org/anything/image");
         expected.put("headers",headers);
         expected.put("json", "null");
-        expected.put("method", "PATCH");
+        expected.put("method", "POST");
         // save response
         JsonPath actual=response.jsonPath();
         //assertions
