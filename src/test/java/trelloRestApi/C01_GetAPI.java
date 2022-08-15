@@ -1,10 +1,16 @@
 package trelloRestApi;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static io.restassured.RestAssured.given;
 
 public class C01_GetAPI {
     /*
@@ -28,6 +34,15 @@ https://api.trello.com/1/members/ecenarin1
     }
     @Test
     public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://api.trello.com/1/members/ecenarin1")
+                .addHeader("Authorization", "Bearer mt0dgHmLJMVQhvjpNXDyA83vA_PxH23Y").build();
+        Response response=given()
+                .spec(req)
+                .accept(ContentType.JSON)
+                .when()
+                .get();
+        response.prettyPrint();
+
     }
     @Test
     public void res() {
