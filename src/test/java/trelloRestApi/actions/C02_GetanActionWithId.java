@@ -1,4 +1,4 @@
-package trelloRestApi;
+package trelloRestApi.actions;
 
 import baseUrls.BaseTrello;
 import io.restassured.builder.RequestSpecBuilder;
@@ -18,10 +18,12 @@ public class C02_GetanActionWithId extends BaseTrello {
     }
     @Test
     public void req() {
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://api.trello.com/1/actions/62d7e33f30d34c3a25a2fc28").setAccept(ContentType.JSON)
-        .addHeader("Authorization", "Bearer mt0dgHmLJMVQhvjpNXDyA83vA_PxH23Y")
-        .build()
-        .queryParams("key","6e0405633cf470268d0a6579d0082fa8","token","27726bdc8dee5827e17fdd1b4b3148acd6eeec8e8523b5e2b43b84d09e7a0dc6");
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://api.trello.com/1/actions/62d7e33f30d34c3a25a2fc28")
+                //.setAccept(ContentType.JSON)
+            // .addHeader("Authorization", "Bearer mt0dgHmLJMVQhvjpNXDyA83vA_PxH23Y")
+             //   .addQueryParam("key","6e0405633cf470268d0a6579d0082fa8")
+               // .addQueryParam("token","27726bdc8dee5827e17fdd1b4b3148acd6eeec8e8523b5e2b43b84d09e7a0dc6")
+        .build();
         Response response=given()
                 .spec(req)
                 .when()

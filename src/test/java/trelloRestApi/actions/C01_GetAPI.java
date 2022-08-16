@@ -1,4 +1,4 @@
-package trelloRestApi;
+package trelloRestApi.actions;
 
 import baseUrls.BaseTrello;
 import io.restassured.builder.RequestSpecBuilder;
@@ -16,6 +16,10 @@ import static io.restassured.RestAssured.given;
 
 public class C01_GetAPI extends BaseTrello {
     /*
+    59d24c2f99e4a9a9bb7c6280
+    keyyyyyyy 6e0405633cf470268d0a6579d0082fa8
+    tokennnnnnn 27726bdc8dee5827e17fdd1b4b3148acd6eeec8e8523b5e2b43b84d09e7a0dc6
+"id": "62d7e33f30d34c3a25a2fc28",
     key=6e0405633cf470268d0a6579d0082fa8
 token=27726bdc8dee5827e17fdd1b4b3148acd6eeec8e8523b5e2b43b84d09e7a0dc6
 key1 = 8fc757f0282852be46596d146f4b3b1b
@@ -24,6 +28,7 @@ zoken=27726bdc8dee5827e17fdd1b4b3148acd6eeec8e8523b5e2b43b84d09e7a0dc6
 "id": "62d7e33f30d34c3a25a2fc28",
 https://api.trello.com/1/members/ecenarin1
 "https://api.trello.com/1/actions/{id}"
+dzGy$D2a8sd8UjJ
      */
 
     @Test
