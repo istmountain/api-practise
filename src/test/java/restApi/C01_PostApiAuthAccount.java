@@ -94,14 +94,14 @@ If email already in use then API Response
         body.put("password",123456);
 
         RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://restapi.adequateshop.com/api/authaccount/registration")
-                .build().pathParams("pp1","api","pp2","authaccount","pp3","registration");
+                .build(); //.pathParams("pp1","api","pp2","authaccount","pp3","registration");
         Response response=given()
                 .spec(req)
                 .contentType(ContentType.JSON)
                 .body(body.toString())
                 .accept(ContentType.JSON)
                 .when()
-                .post("/{pp1]/{pp2}/{pp3}");
+                .post();
         response.prettyPrint();
         /*
         {
@@ -150,5 +150,26 @@ If email already in use then API Response
                 .body(body.toString())
                 .when()
                 .post("/{pp1]/{pp2}/{pp3}");
+        response.prettyPrint();
+        /*
+        {
+    "code": 1,
+    "message": "The email address you have entered is already registered",
+    "data": null
+}
+         */
+        JSONObject expData=new JSONObject();
+        expData.put("code", 1);
+        expData.put("message", "The email address you have entered is already registered");
+        expData.put("data", "null");
+        //Response
+        JsonPath actual=response.jsonPath();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(expData.get("code"),actual.get("code"));
+        assertEquals(expData.get("message"),actual.get("message"));
+        // assertEquals(expData.get("data"),actual.get("data"));
     }
 }
