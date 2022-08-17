@@ -3,8 +3,11 @@ package restApi;
 import baseUrls.BaseRestApi;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,9 +17,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C01_PostApiAuthAccount extends BaseRestApi {
-    //http://restapi.adequateshop.com/api/authaccount/registration
+    //http://restapi.adequateshop.com /api/authaccount/registration
     /*
     Post/api/authaccount/registration
 API Request
@@ -72,15 +76,53 @@ If email already in use then API Response
 
     @Test
     public void req() {
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri("")
-                .build().pathParams("pp1","api","pp2","authaccount","pp3","registration");
+        //body
+        /*
+        API Request
+{
+
+            "name":"Developer",
+            "email":"Developer5@gmail.com",
+            "password":123456
+}
+   //http://restapi.adequateshop.com /api/authaccount/registration
+
+         */
+        JSONObject body=new JSONObject();
+        body.put("name","Developer");
+        body.put("email","Developer5@gmail.com");
+        body.put("password",123456);
+
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("http://restapi.adequateshop.com/api/authaccount/registration")
+                .build(); //.pathParams("pp1","api","pp2","authaccount","pp3","registration");
         Response response=given()
                 .spec(req)
+                .contentType(ContentType.JSON)
+                .body(body.toString())
                 .accept(ContentType.JSON)
                 .when()
-                .get();
+                .post();
         response.prettyPrint();
-
+        /*
+        {
+    "code": 1,
+    "message": "The email address you have entered is already registered",
+    "data": null
+}
+         */
+        JSONObject expData=new JSONObject();
+        expData.put("code", 1);
+        expData.put("message", "The email address you have entered is already registered");
+        expData.put("data", "null");
+        //Response
+        JsonPath actual=response.jsonPath();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(expData.get("code"),actual.get("code"));
+        assertEquals(expData.get("message"),actual.get("message"));
+       // assertEquals(expData.get("data"),actual.get("data"));
     }
 
     @Test
