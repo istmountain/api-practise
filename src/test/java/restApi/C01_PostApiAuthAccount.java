@@ -1,6 +1,10 @@
 package restApi;
 
 import baseUrls.BaseRestApi;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -8,6 +12,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import static io.restassured.RestAssured.given;
 
 public class C01_PostApiAuthAccount extends BaseRestApi {
     //http://restapi.adequateshop.com/api/authaccount/registration
@@ -66,6 +72,15 @@ If email already in use then API Response
 
     @Test
     public void req() {
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("")
+                .build().pathParams("pp1","api","pp2","authaccount","pp3","registration");
+        Response response=given()
+                .spec(req)
+                .accept(ContentType.JSON)
+                .when()
+                .get();
+        response.prettyPrint();
+
     }
 
     @Test
