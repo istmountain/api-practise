@@ -76,13 +76,13 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
         JSONObject exp=new JSONObject();
         exp.put("name","Tenali Ramakrishna");
         exp.put("gender","male");
-        exp.put("email","tenali.ramakr6768ishna@15ce.com");
+        exp.put("email","tenali.ramakr6768ijkşşşşshna@15ce.com");
         exp.put("status","active");
         //save response
         JsonPath act=response.jsonPath();
         response.then()
                 .assertThat()
-                .statusCode(200);
+                .statusCode(201);
         assertEquals(exp.get("name"),act.get("name"));
         assertEquals(exp.get("gender"),act.get("gender"));
         assertEquals(exp.get("email"),act.get("email"));
@@ -102,7 +102,7 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
         JSONObject body=new JSONObject();
         body.put("name","Tenali Ramakrishna");
         body.put("gender","male");
-        body.put("email","tenali.ramakr6hgfhf768ishna@15ce.com");
+        body.put("email","tenali.ramakr6hgfhf768ishşşşşşikhna@15ce.com");
         body.put("status","active");
         Response response=given()
                 .spec(specGorest)
@@ -123,7 +123,7 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
         JsonPath act=response.jsonPath();
         response.then()
                 .assertThat()
-                .statusCode(200);
+                .statusCode(201);
         assertEquals(exp.get("name"),act.get("name"));
         assertEquals(exp.get("gender"),act.get("gender"));
         assertEquals(exp.get("email"),act.get("email"));
