@@ -91,5 +91,26 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
     }
     @Test
     public void res() {
+        specGorest.pathParam("pp1","users");
+            /*
+    Create user
+curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Authorization:
+ Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/users" -d '
+ {"name":"Tenali Ramakrishna", "gender":"male",
+ "email":"tenali.ramakrishna@15ce.com", "status":"active"}
+     */
+        JSONObject body=new JSONObject();
+        body.put("name","Tenali Ramakrishna");
+        body.put("gender","male");
+        body.put("email","tenali.ramakr6hgfhf768ishna@15ce.com");
+        body.put("status","active");
+        Response response=given()
+                .spec(specGorest)
+                .accept("application/json")
+                .contentType("application/json")
+                .header("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .body(body.toString())
+                .when()
+                .post("/{pp1}");
     }
 }
