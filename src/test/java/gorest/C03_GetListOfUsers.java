@@ -48,5 +48,19 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
     }
     @Test
     public void res() {
+        specGorest.pathParam("pp1",  "users");
+        Response response = given()
+                .spec(specGorest)
+                .accept("application/json")
+                .contentType("application/json")
+                .header("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .when()
+                .get("/{pp1}");
+        response.prettyPrint();
+        int size = response.jsonPath().getList("id").size();
+        response.then()
+                .assertThat()
+                .statusCode(200)
+                .body("id", Matchers.hasSize(size));
     }
 }
