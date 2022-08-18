@@ -112,5 +112,22 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
                 .body(body.toString())
                 .when()
                 .post("/{pp1}");
+        response.prettyPrint();
+        //exp body
+        JSONObject exp=new JSONObject();
+        exp.put("name","Tenali Ramakrishna");
+        exp.put("gender","male");
+        exp.put("email","tenali.ramakr6768ishna@15ce.com");
+        exp.put("status","active");
+        //save response
+        JsonPath act=response.jsonPath();
+        response.then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(exp.get("name"),act.get("name"));
+        assertEquals(exp.get("gender"),act.get("gender"));
+        assertEquals(exp.get("email"),act.get("email"));
+        assertEquals(exp.get("status"),act.get("status"));
+
     }
 }
