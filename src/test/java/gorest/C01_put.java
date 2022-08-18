@@ -11,6 +11,7 @@ public class C01_put extends BaseUrlGorest {
     public void name() {
         specGorest.pathParams("pp1","users","pp2",2527);
         // 1 -Request url ve body'sini hazirlamak
+        // token acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79
         Response response=given()
                 .spec(specGorest)
                 .when()

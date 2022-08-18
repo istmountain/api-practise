@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -65,7 +66,6 @@ If email or password is wrong then API Response
 
         OutputStream stream = http.getOutputStream();
         stream.write(out);
-
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
     }
@@ -95,6 +95,7 @@ API Request
                 .when()
                 .post();
         response.prettyPrint();
+
        /*
 
 {
@@ -147,7 +148,7 @@ API Request
         JSONObject body=new JSONObject();
         body.put("email","Developer5@gmail.com");
         body.put("password",123456);
-        specRest.pathParams("pp1","api","pp2","authaccount","pp3","registration");
+        specRest.pathParams("pp1","api","pp2","authaccount","pp3","login");
         Response response=given()
                 .spec(specRest)
                 .contentType(ContentType.JSON)
