@@ -135,5 +135,60 @@ If email or password is wrong then API Response
     }
     @Test
     public void res() {
+         /*
+    http://restapi.adequateshop.com/api/authaccount/login
+    st/api/authaccount/login
+API Request
+{
+	"email":"Developer5@gmail.com",
+	"password":123456
+}
+         */
+        JSONObject body=new JSONObject();
+        body.put("email","Developer5@gmail.com");
+        body.put("password",123456);
+        specRest.pathParams("pp1","api","pp2","authaccount","pp3","registration");
+        Response response=given()
+                .spec(specRest)
+                .contentType(ContentType.JSON)
+                .body(body.toString())
+                .when()
+                .post("/{pp1]/{pp2}/{pp3}");
+        response.prettyPrint();
+      /*
+
+{
+    "$id": "1",
+    "code": 0,
+    "message": "success",
+    "data": {
+        "$id": "2",
+        "Id": 7075,
+        "Name": "Developer",
+        "Email": "Developer5@gmail.com",
+        "Token": "02b869e4-ea45-4b5c-b764-642a39e95bb7"
+    }
+}
+If email or password is wrong then API Response
+
+{
+    "$id": "1",
+    "code": 1,
+    "message": "invalid username or password",
+    "data": null
+}
+     */
+        JSONObject expData=new JSONObject();
+        expData.put("code", 1);
+        expData.put("message", "The email address you have entered is already registered");
+        //Response
+        JsonPath actual=response.jsonPath();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(expData.get("code"),actual.get("code"));
+        assertEquals(expData.get("message"),actual.get("message"));
+
     }
 }
