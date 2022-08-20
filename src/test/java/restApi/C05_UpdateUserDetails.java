@@ -1,6 +1,7 @@
 package restApi;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
@@ -93,14 +94,34 @@ public class C05_UpdateUserDetails {
         exp.put("status", "active");
         exp.put("gender", "female");
         exp.put("id", 24);
+        JsonPath act=response.jsonPath();
         response
                 .then()
                 .assertThat()
                 .statusCode(200);
-        assertEquals();
+        assertEquals(exp.get("email"),act.get("email"));
+        assertEquals(exp.get("name"),act.get("name"));
+        assertEquals(exp.get("status"),act.get("status"));
+        assertEquals(exp.get("gender"),act.get("gender"));
+        assertEquals(exp.get("id"),act.get("id"));
     }
 
     @Test
     public void res() {
+                 /*
+    Update user
+  curl -i -H "Accept:application/json" -H "Content-Type:application/json"
+ -H "Authorization: Bearer ACCESS-TOKEN" -XPATCH "https://gorest.co.in/public/v2/users/24"
+ -d '{"name":"Allasani Peddana", "email":"allasani.peddana@15ce.com", "status":"active"}'
+ "Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79"
+        {
+    "email": "allaasani.peddana@15ce.com",
+    "name": "Allasani Peddana",
+    "status": "active",
+    "id": 24,
+    "gender": "female"
+}
+         */
+
     }
 }
