@@ -1,5 +1,6 @@
 package restApi;
 
+import baseUrls.BaseRestApi;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -18,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
-public class C05_UpdateUserDetails {
+public class C05_UpdateUserDetails extends BaseRestApi {
     /*
     Update user
   curl -i -H "Accept:application/json" -H "Content-Type:application/json"
@@ -122,6 +123,40 @@ public class C05_UpdateUserDetails {
     "gender": "female"
 }
          */
+        JSONObject body=new JSONObject();
+        body.put("email", "allaasani.peddsdana@15ce.com");
+        body.put("name", "Allasani Peddana");
+        body.put("status", "active");
+        body.put("gender", "female");
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://gorest.co.in/public/v2/users/24")
+                .addHeader("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .setContentType("application/json")
+                .setAccept("application/json")
+                .build();
+        Response response=given()
+                .contentType("application/json")
+                .accept("application/json")
+                .header("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .body(body.toString())
+                .when()
+                .patch("https://gorest.co.in/public/v2/users/24");
+        response.prettyPrint();
+        JSONObject exp=new JSONObject();
+        exp.put("email", "allaasani.peddsdana@15ce.com");
+        exp.put("name", "Allasani Peddana");
+        exp.put("status", "active");
+        exp.put("gender", "female");
+        exp.put("id", 24);
+        JsonPath act=response.jsonPath();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(exp.get("email"),act.get("email"));
+        assertEquals(exp.get("name"),act.get("name"));
+        assertEquals(exp.get("status"),act.get("status"));
+        assertEquals(exp.get("gender"),act.get("gender"));
+        assertEquals(exp.get("id"),act.get("id"));
 
     }
 }
