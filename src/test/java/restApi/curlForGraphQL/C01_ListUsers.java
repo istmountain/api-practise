@@ -86,6 +86,22 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
 curl -i -H "Accept:application/json" -H "Content-Type:application/json"
 -H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
 -d '{"query":"query{users {pageInfo {endCursor startCursor hasNextPage hasPreviousPage} totalCount nodes {id name email gender status}}}"}'
+"data": {
+        "users": {
+            "pageInfo": {
+                "endCursor": "MjA",
+                "startCursor": "MQ",
+                "hasNextPage": true,
+                "hasPreviousPage": false
+            },
+            "totalCount": 3292,
+            "nodes": [{
+                "id": 6037,
+                "name": "Meenakshi Dutta DO",
+                "email": "meenakshi_do_dutta@gleason.com",
+                "gender": "male",
+                "status": "inactive"
+            },
      */
 
     }
