@@ -2,7 +2,9 @@ package restApi.curlForGraphQL;
 
 import baseUrls.BaseUrlGorest;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,6 +12,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import static io.restassured.RestAssured.given;
 
 public class C01_ListUsers extends BaseUrlGorest {
     /*
@@ -21,6 +25,13 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
 
     @Test
     public void http() throws IOException {
+          /*
+    List users
+curl -i -H "Accept:application/json" -H "Content-Type:application/json"
+-H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
+-d '{"query":"query{users {pageInfo {endCursor startCursor hasNextPage hasPreviousPage} totalCount nodes {id name email gender status}}}"}'
+     */
+
         URL url = new URL("https://gorest.co.in/public/v2/graphql");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("POST");
@@ -42,15 +53,41 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
 
     @Test
     public void req() {
-        RequestSpecification req=new RequestSpecBuilder().setBaseUri()
-                .addHeader()
-                .setAccept()
-                .setContentType()
+          /*
+    List users
+curl -i -H "Accept:application/json" -H "Content-Type:application/json"
+-H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
+-d '{"query":"query{users {pageInfo {endCursor startCursor hasNextPage hasPreviousPage} totalCount nodes {id name email gender status}}}"}'
+     */
+      //  JSONObject body=new JSONObject();
+        String data = "{\"query\":\"query{users {pageInfo {endCursor startCursor hasNextPage hasPreviousPage} totalCount nodes {id name email gender status}}}\"}";
+
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("https://gorest.co.in/public/v2/graphql")
+                .addHeader("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .setAccept("application/json")
+                .setContentType("application/json")
                 .build();
+        Response response=given()
+                .spec(req)
+                .body(data)
+                .when()
+                .post();
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
 
     @Test
     public void res() {
+          /*
+    List users
+curl -i -H "Accept:application/json" -H "Content-Type:application/json"
+-H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
+-d '{"query":"query{users {pageInfo {endCursor startCursor hasNextPage hasPreviousPage} totalCount nodes {id name email gender status}}}"}'
+     */
+
     }
     /*
     {
