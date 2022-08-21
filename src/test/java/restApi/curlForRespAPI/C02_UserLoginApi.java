@@ -1,4 +1,4 @@
-package restApi;
+package restApi.curlForRespAPI;
 
 import baseUrls.BaseRestApi;
 import io.restassured.builder.RequestSpecBuilder;
