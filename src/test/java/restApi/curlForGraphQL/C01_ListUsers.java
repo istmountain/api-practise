@@ -103,6 +103,22 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
                 "status": "inactive"
             },
      */
+        String data = "{\"query\":\"query{users {pageInfo {endCursor startCursor hasNextPage hasPreviousPage} totalCount nodes {id name email gender status}}}\"}";
+
+        specGorest.pathParam("pp1","graphql");
+        Response response=given()
+                .spec(specGorest)
+                .accept("application/json")
+                .contentType("application/json")
+                .body(data)
+                .header("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .when()
+                .post("/{pp1}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
 
     }
     /*
