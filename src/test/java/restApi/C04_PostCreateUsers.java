@@ -128,6 +128,69 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json" -H "Auth
         assertEquals(exp.get("gender"),act.get("gender"));
         assertEquals(exp.get("email"),act.get("email"));
         assertEquals(exp.get("status"),act.get("status"));
+        /*
+        [{
+    "id": 3708,
+    "name": "Deepali Malik",
+    "email": "deepali_malik@kessler.net",
+    "gender": "female",
+    "status": "inactive"
+}, {
+    "id": 3707,
+    "name": "Aanandaswarup Varma",
+    "email": "aanandaswarup_varma@blanda.com",
+    "gender": "female",
+    "status": "inactive"
+}, {
+    "id": 3705,
+    "name": "Abhaya Ahluwalia",
+    "email": "ahluwalia_abhaya@baumbach.co",
+    "gender": "female",
+    "status": "active"
+}, {
+    "id": 3704,
+    "name": "Chandak Gill",
+    "email": "gill_chandak@keeling.info",
+    "gender": "male",
+    "status": "active"
+}, {
+    "id": 3702,
+    "name": "Adhiraj Abbott",
+    "email": "adhiraj_abbott@weber.org",
+    "gender": "female",
+    "status": "inactive"
+}, {
+    "id": 3700,
+    "name": "Ms. Devasree Rana",
+    "email": "devasree_rana_ms@leffler.biz",
+    "gender": "male",
+    "status": "active"
+}, {
+    "id": 3699,
+    "name": "Gautam Tandon",
+    "email": "tandon_gautam@kutch.net",
+    "gender": "male",
+    "status": "active"
+}, {
+    "id": 3698,
+    "name": "Chidambaram Mukhopadhyay",
+    "email": "chidambaram_mukhopadhyay@collins.info",
+    "gender": "female",
+    "status": "active"
+}, {
+    "id": 3697,
+    "name": "Meenakshi Dutta DO",
+    "email": "meenakshi_do_dutta@gleason.com",
+    "gender": "male",
+    "status": "inactive"
+}, {
+    "id": 3696,
+    "name": "Sen. Ghanaanand Saini",
+    "email": "ghanaanand_saini_sen@zieme-stracke.co",
+    "gender": "female",
+    "status": "inactive"
+}]
+         */
 
     }
 }
