@@ -57,6 +57,10 @@ curl -i -H "Accept:application/json"
         Response response=given()
                 .spec(req)
                 .when().delete();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
     @Test
     public void res() {
@@ -67,12 +71,16 @@ curl -i -H "Accept:application/json"
 -H "Authorization: Bearer ACCESS-TOKEN"
 -XDELETE "https://gorest.co.in/public/v2/users/24"
      */
-             specRest.pathParams("pp1","users","pp2","3702");
+             specGorest.pathParams("pp1","users","pp2","3702");
         Response response=given()
-                .spec(specRest)
+                .spec(specGorest)
                 .accept("application/json")
                 .contentType("application/json")
                 .header("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
                 .when().delete();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
 }
