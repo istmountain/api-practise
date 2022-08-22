@@ -136,5 +136,74 @@ public class C02_GetUserGraphQL extends BaseUrlGorest {
 
     @Test
     public void res() {
+          /*
+    curl -i -H "Accept:application/json"
+    -H "Content-Type:application/json"
+    -H "Authorization: Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79"
+    -XPOST "https://gorest.co.in/public/v2/graphql"
+    -d '{"query":"query{user(id: 32) { id name email gender status }}"}'
+    {
+    "data": {
+        "user": {
+            "id": 32,
+            "name": "Chandrabhan Nair Sr.",
+            "email": "sr_nair_chandrabhan@kuhlman.net",
+            "gender": "male",
+            "status": "active"
+        }
+    }
+}
+     */
+        String body = "{\"query\":\"query{user(id: 32) { id name email gender status }}\"}";
+        specGorest.pathParam("pp1","graphql");
+        Response response=
+                given()
+                        .spec(specGorest)
+                        .accept("application/json")
+                        .contentType("application/json")
+                        .body(body)
+                        .header("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                        .when()
+                        .post("/{pp1}");
+        response.prettyPrint();
+        //expBody
+        /*
+        {
+    "data": {
+        "user": {
+            "id": 32,
+            "name": "Dhruv Panicker",
+            "email": "panicker_dhruv@feil.org",
+            "gender": "male",
+            "status": "inactive"
+        }
+    }
+}
+         */
+        JSONObject exp=new JSONObject();
+        JSONObject data=new JSONObject();
+        JSONObject user=new JSONObject();
+        user.put("id", 32);
+        user.put("name", "Dhruv Panicker");
+        user.put("email", "panicker_dhruv@feil.org");
+        user.put("gender", "male");
+        user.put("status", "inactive");
+        data.put("user",user);
+        exp.put("data",data);
+        //save response
+        JsonPath act=response.jsonPath();
+        //assertions
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("id"),act.get("data.user.id"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("name"),act.get("data.user.name"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("email"),act.get("data.user.email"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("gender"),act.get("data.user.gender"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("status"),act.get("data.user.status"));
+
+
+
     }
 }
