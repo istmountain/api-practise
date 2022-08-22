@@ -2,8 +2,10 @@ package restApi.curlForGraphQL;
 
 import baseUrls.BaseUrlGorest;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -76,7 +78,7 @@ public class C02_GetUserGraphQL extends BaseUrlGorest {
     }
 }
      */
-        String data = "{\"query\":\"query{user(id: 32) { id name email gender status }}\"}";
+        String body = "{\"query\":\"query{user(id: 32) { id name email gender status }}\"}";
         RequestSpecification req=new RequestSpecBuilder()
                 .setBaseUri("https://gorest.co.in/public/v2/graphql")
                 .setContentType("application/json")
@@ -86,7 +88,7 @@ public class C02_GetUserGraphQL extends BaseUrlGorest {
         Response response=
                 given()
                         .spec(req)
-                        .body(data)
+                        .body(body)
                         .when()
                         .post();
         response.prettyPrint();
@@ -103,8 +105,22 @@ public class C02_GetUserGraphQL extends BaseUrlGorest {
         }
     }
 }
-
          */
+        JSONObject exp=new JSONObject();
+        JSONObject data=new JSONObject();
+        JSONObject user=new JSONObject();
+        user.put("id", 32);
+        user.put("name", "Dhruv Panicker");
+        user.put("email", "panicker_dhruv@feil.org");
+        user.put("gender", "male");
+        user.put("status", "inactive");
+        data.put("user",user);
+        exp.put("data",data);
+        //save response
+        JsonPath act=response.jsonPath();
+        //assertions
+
+
 
     }
 
