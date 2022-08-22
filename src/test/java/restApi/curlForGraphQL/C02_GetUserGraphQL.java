@@ -6,6 +6,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class C02_GetUserGraphQL extends BaseUrlGorest {
     /*
@@ -119,7 +121,15 @@ public class C02_GetUserGraphQL extends BaseUrlGorest {
         //save response
         JsonPath act=response.jsonPath();
         //assertions
-
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("id"),act.get("data.user.id"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("name"),act.get("data.user.name"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("email"),act.get("data.user.email"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("gender"),act.get("data.user.gender"));
+        assertEquals(exp.getJSONObject("data").getJSONObject("user").get("status"),act.get("data.user.status"));
 
 
     }
