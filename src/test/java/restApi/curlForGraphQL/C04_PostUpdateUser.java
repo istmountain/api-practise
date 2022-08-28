@@ -13,9 +13,10 @@ public class C04_PostUpdateUser {
     public void HTTP() throws IOException {
         /*
         Update user
-curl -i -H "Accept:application/json" -H "Content-Type:application/json"
--H "Authorization: Bearer ACCESS-TOKEN" -XPATCH "https://gorest.co.in/public/v2/users/9"
--d '{"name":"Allasani Peddana", "email":"allasani.peddana@15ce.com", "status":"active"}'
+curl -i -H "Accept:application/json"
+-H "Content-Type:application/json"
+-H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
+-d '{"query":"mutation{updateUser(input: {id: 9 name: \"Allasani Peddana\" email: \"allasani.peddana@15ce.com\" status: \"active\"}) {user{id name gender email status}}}"}'
          */
               /*
         {
@@ -34,7 +35,7 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
         http.setRequestProperty("Accept", "application/json");
         http.setRequestProperty("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79");
 
-        String data = "{\"name\":\"Allasani Peddana\", \"email\":\"allasani.peddana@15ce.com\", \"status\":\"active\"}";
+        String data = "{\"query\":\"mutation{updateUser(input: {id: 9 name: \"Allasani Peddana\" email: \"allasani.peddana@15ce.com\" status: \"active\"}) {user{id name gender email status}}}\"}";
 
         byte[] out = data.getBytes(StandardCharsets.UTF_8);
 
@@ -48,11 +49,12 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
 
     @Test
     public void req() {
-             /*
+        /*
         Update user
-curl -i -H "Accept:application/json" -H "Content-Type:application/json"
--H "Authorization: Bearer ACCESS-TOKEN" -XPATCH "https://gorest.co.in/public/v2/users/9"
--d '{"name":"Allasani Peddana", "email":"allasani.peddana@15ce.com", "status":"active"}'
+curl -i -H "Accept:application/json"
+-H "Content-Type:application/json"
+-H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
+-d '{"query":"mutation{updateUser(input: {id: 9 name: \"Allasani Peddana\" email: \"allasani.peddana@15ce.com\" status: \"active\"}) {user{id name gender email status}}}"}'
          */
 
     }

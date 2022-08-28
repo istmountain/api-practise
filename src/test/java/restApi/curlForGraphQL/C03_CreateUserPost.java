@@ -1,6 +1,9 @@
 package restApi.curlForGraphQL;
 
 import baseUrls.BaseUrlGorest;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -8,6 +11,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import static io.restassured.RestAssured.given;
 
 public class C03_CreateUserPost extends BaseUrlGorest {
     /*
@@ -63,9 +68,23 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
     }
     @Test
     public void req() {
+        String data = "{\"query\":\"mutation{createUser(input: {name: \"Tenali Ramakrishna\" gender: \"male\" email: \"tenali.ramakrishna@15ce.com\" status: \"active\"}) {user{id name gender email status}}}\"}";
+
+        RequestSpecification req=new RequestSpecBuilder()
+                .setBaseUri("https://gorest.co.in/public/v2/graphql")
+                .setAccept( "application/json")
+                .setContentType("application/json")
+                .addHeader("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .build();
+        Response response=given()
+                .spec(req)
+                .body(data)
+                .when()
+                .post();
     }
     @Test
     public void res() {
+
     }
 
 }
