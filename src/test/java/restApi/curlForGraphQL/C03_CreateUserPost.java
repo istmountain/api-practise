@@ -4,6 +4,7 @@ import baseUrls.BaseUrlGorest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -81,10 +82,47 @@ curl -i -H "Accept:application/json" -H "Content-Type:application/json"
                 .body(data)
                 .when()
                 .post();
+        /*
+        {
+    "data": {
+        "createUser": null
+    },
+    "errors": [{
+        "message": "Validation failed!",
+        "locations": [{
+            "line": 1,
+            "column": 10
+        }],
+        "path": ["createUser"],
+        "extensions": {
+            "code": "UNPROCESSABLE_ENTITY",
+            "result": [{
+                "fieldName": "email",
+                "messages": ["has already been taken"]
+            }]
+        }
+    }]
+}
+         */
+        JSONObject exp=new JSONObject();
     }
     @Test
     public void res() {
 
+        String data = "{\"query\":\"mutation{createUser(input: {name: \"Tenali Ramakrishna\" gender: \"male\" email: \"tenali.ramakrishna@15ce.com\" status: \"active\"}) {user{id name gender email status}}}\"}";
+        specGorest.pathParam("pp1","graphql");
+        Response response=given()
+                .spec(specGorest)
+                .accept("application/json")
+                .contentType("application/json")
+                .body(data)
+                .when()
+                .post("/{pp1}");
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(201);
     }
 
 }
