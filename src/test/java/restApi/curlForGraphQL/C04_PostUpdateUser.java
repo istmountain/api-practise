@@ -1,6 +1,7 @@
 package restApi.curlForGraphQL;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
@@ -9,6 +10,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
+import static io.restassured.RestAssured.given;
 
 public class C04_PostUpdateUser {
     @Test
@@ -64,6 +67,17 @@ curl -i -H "Accept:application/json"
                 .setAccept("application/json")
                 .setContentType("application/json")
                 .build();
+        String data = "{\"query\":\"mutation{updateUser(input: {id: 9 name: \"Allasani Peddana\" email: \"allasani.peddana@15ce.com\" status: \"active\"}) {user{id name gender email status}}}\"}";
+        Response response=given()
+                .spec(req)
+                .body(data)
+                .when()
+                .post();
+        response.prettyPrint();
+        response
+                .then()
+                .assertThat()
+                .statusCode(200);
 
     }
 }
