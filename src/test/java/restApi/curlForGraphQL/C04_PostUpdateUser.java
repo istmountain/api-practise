@@ -1,5 +1,7 @@
 package restApi.curlForGraphQL;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -56,6 +58,12 @@ curl -i -H "Accept:application/json"
 -H "Authorization: Bearer ACCESS-TOKEN" -XPOST "https://gorest.co.in/public/v2/graphql"
 -d '{"query":"mutation{updateUser(input: {id: 9 name: \"Allasani Peddana\" email: \"allasani.peddana@15ce.com\" status: \"active\"}) {user{id name gender email status}}}"}'
          */
+        RequestSpecification req=new RequestSpecBuilder()
+                .setBaseUri("https://gorest.co.in/public/v2/graphql")
+                .addHeader("Authorization", "Bearer acc5b803a5df9bc89143ebc8a78d79e0c7dd9ea02e0f98717e2cf22dd60fac79")
+                .setAccept("application/json")
+                .setContentType("application/json")
+                .build();
 
     }
 }
