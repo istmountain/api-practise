@@ -9,10 +9,8 @@ jdk:
        - oraclejdk-ea
 sudo: false
 script: mvn clean verify
-       mvn package -DskipTests
-       ./mvnw clean install
+
 deploy:
-provider: heroku
 api_key:
 secure: "ENCRYPTED_API_KEY"
 install:
