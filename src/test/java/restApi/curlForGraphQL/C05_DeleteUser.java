@@ -106,5 +106,6 @@ public class C05_DeleteUser extends BaseUrlGorest {
                 .then()
                 .assertThat()
                 .statusCode(200);
+
     }
 }

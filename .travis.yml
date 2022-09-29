@@ -1,0 +1,23 @@
+dist: trusty
+language: java
+jdk:
+       - openjdk8
+       - openjdk11
+       - openjdk-ea
+       - oraclejdk8
+       - oraclejdk11
+       - oraclejdk-ea
+sudo: false
+script: mvn clean verify
+       mvn package -DskipTests
+       ./mvnw clean install
+deploy:
+provider: heroku
+api_key:
+secure: "ENCRYPTED_API_KEY"
+install:
+       - pip install selenium
+       - pip install requests
+
+notifications:
+       email: la.crymosa321@gmail.com
