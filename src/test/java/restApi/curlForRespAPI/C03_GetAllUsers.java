@@ -1,6 +1,12 @@
 package restApi.curlForRespAPI;
 
 import baseUrls.BaseRestApi;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.given;
 
 public class C03_GetAllUsers extends BaseRestApi {
     /*
@@ -27,4 +33,16 @@ API Response
             "profilepicture": "https://www.adequatetravel.com/ATMultimedia/Images/1a30600f-3b07-4797-b883-981b455f2e84.png",
             "location": "USA",
      */
+
+    @Test
+    public void name() {
+        RequestSpecification req=new RequestSpecBuilder()
+                .setBaseUri("http://restapi.adequateshop.com/api/users?page=1").build();
+        Response response=given()
+                .spec(req)
+                .when()
+                .get();
+        response.prettyPrint();
+
+    }
 }
