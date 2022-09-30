@@ -43,6 +43,9 @@ API Response
                 .when()
                 .get();
         response.prettyPrint();
+        response.then()
+                .assertThat()
+                .statusCode(200);
 
     }
 }
