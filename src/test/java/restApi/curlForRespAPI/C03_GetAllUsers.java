@@ -2,6 +2,7 @@ package restApi.curlForRespAPI;
 
 import baseUrls.BaseRestApi;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
@@ -39,13 +40,15 @@ API Response
         RequestSpecification req=new RequestSpecBuilder()
                 .setBaseUri("http://restapi.adequateshop.com/api/users?page=1").build();
         Response response=given()
-                .spec(req)
+                //.spec(req)
+                .accept(ContentType.JSON)
                 .when()
-                .get();
+                .get("http://restapi.adequateshop.com/api/users?page=1");
         response.prettyPrint();
         response.then()
                 .assertThat()
                 .statusCode(200);
+
 
     }
 }
