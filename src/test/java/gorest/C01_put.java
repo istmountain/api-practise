@@ -1,7 +1,10 @@
 package gorest;
 
 import baseUrls.BaseUrlGorest;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
@@ -27,6 +30,17 @@ public class C01_put extends BaseUrlGorest
                 .then()
                 .assertThat()
                 .statusCode(200);
+
+    }
+    @Test
+    public void teste(){
+        RequestSpecification req=new RequestSpecBuilder().setBaseUri("").build();
+        Response response=given()
+                .spec(req)
+                .accept(ContentType.JSON)
+                .when()
+                .get();
+        response.prettyPrint();
 
     }
 }
