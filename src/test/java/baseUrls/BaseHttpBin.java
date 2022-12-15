@@ -10,5 +10,10 @@ public class BaseHttpBin {
     public void setup(){
         specHttpbin=new RequestSpecBuilder().setBaseUri("http://httpbin.org").build();
     }
-   ///77kggggk
+    ///77kggggk  ssdfkgdkff fffinsssnnnsdjdjddddk   hakaan
+    /////////
+    ///fffffffff
+    ///////////////
+    ////ggggggggggg
+    ////GGFSDste
 }
